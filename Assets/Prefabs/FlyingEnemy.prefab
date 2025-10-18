@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6675089994454389528}
   - component: {fileID: 4593935299090601002}
   - component: {fileID: 6805191143949226639}
+  - component: {fileID: -5316343852969186343}
   m_Layer: 0
   m_Name: FlyingEnemy
   m_TagString: Enemy
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 8860474266058324391, guid: 91b79e0d181cf67498e02e60fb03e877, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,9 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e85774edd525f4192df0fe71ef1ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
-  _health: 100
-  _score: 20
+  data: {fileID: 11400000, guid: 7a1eb4b01779a7a4093777cdf315bb5b, type: 2}
 --- !u!50 &4593935299090601002
 Rigidbody2D:
   serializedVersion: 5
@@ -113,11 +112,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3912410040019218767}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.2
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -168,4 +167,41 @@ CapsuleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.7}
   m_Size: {x: 3.5119991, y: 3.5119991}
+  m_Direction: 0
+--- !u!70 &-5316343852969186343
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3912410040019218767}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.14272022}
+  m_Size: {x: 1, y: 1.7145596}
   m_Direction: 0

@@ -53,6 +53,7 @@
         {
             _startPanel.SetActive(false);
             Time.timeScale = 1;
+            PlayerPrefs.SetInt("Highscore",0);
         }
 
         public void Quit()
@@ -65,7 +66,8 @@
             var highScore = PlayerPrefs.GetInt("Highscore");
             _playerScoretxt.text ="Score: "+ highScore.ToString();
             _playerScore = highScore;
-            Play();
+            _startPanel.SetActive(false);
+            Time.timeScale = 1;
         }
 
         public void RePlay()
@@ -102,8 +104,6 @@
         {
             if (score%100==0)
             {
-                Debug.Log("go On");
-                
                 _bonesTXT.text = "go on";
                 _bonesTXT.gameObject.SetActive(true);
                 BonesScale();
@@ -111,7 +111,6 @@
 
             if (score %1000==0)
             {
-                Debug.Log("you're on fire");
                 _bonesTXT.text =" you're on fire";
                 _bonesTXT.gameObject.SetActive(true);
                 BonesScale();
@@ -119,7 +118,6 @@
 
             if (score % 10000 == 0)
             {
-                Debug.Log("Legend");
                 _bonesTXT.text = "Legend";
                 _bonesTXT.gameObject.SetActive(true);
                 BonesScale();
@@ -156,7 +154,7 @@
             }
         }
 
-        void ScaleBounce(Transform _transform)
+       public void ScaleBounce(Transform _transform)
         {
             _transform.DOScale(new Vector3(1.2f, 1.2f, 1f), 0.3f)
                 .SetEase(Ease.OutBack).OnComplete((() => _transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f)

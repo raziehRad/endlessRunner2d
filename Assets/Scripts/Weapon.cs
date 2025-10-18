@@ -3,7 +3,8 @@
 
     public class Weapon : MonoBehaviour
     {
-        public int _damage;
+        public ItemData data;
+        // public int _damage;
 
         public virtual void Fire()
         {
@@ -12,6 +13,6 @@
 
         public virtual void TakeDamage(IDamageable iDamageable)
         {
-            iDamageable.TakeDamage(_damage);
+            iDamageable.TakeDamage(data.value);
         }
     }

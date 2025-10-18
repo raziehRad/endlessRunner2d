@@ -20,13 +20,13 @@ public class ShotGun : Weapon
     public override void Fire()
     {
         var bollet = Instantiate(_bolletPrefab, _instancePosition.position, Quaternion.identity, transform);
-        bollet.GetComponent<Bullet>().SetDamage(_damage);
+        bollet.GetComponent<Bullet>().SetDamage(data.value);
         Rigidbody2D rb = bollet.GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.right * speed;
     }
 
     public override void TakeDamage(IDamageable iDamageable)
     {
-        iDamageable.TakeDamage(_damage);
+        iDamageable.TakeDamage(data.value);
     }
 }

@@ -10,12 +10,12 @@ public class FlyingDamage : Enemy
 
     public override void TakeDamage(int damage)
     {
-        _health -= damage;
-        if (_health<0)
+        data.health -= damage;
+        if (data.health<0)
         {
-            HUDManager.instace.SetPlayerScore(_score);
+            HUDManager.instace.SetPlayerScore(data.score);
             gameObject.SetActive(false);
-            _health = 100;
+            data.health = 100;
             
         }
     }

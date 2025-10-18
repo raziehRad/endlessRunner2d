@@ -14,8 +14,9 @@ public class ParallaxBackgroundRunner : MonoBehaviour
 
     private void Update()
     {
-        Vector3 delta = _target.position - lastGroundPosition;
-        transform.position += new Vector3(delta.x * parallaxMultiplier, 0, 0);
-        lastGroundPosition = _target.position;
+        transform.position = new Vector3( _target.position.x, 0, 0);
+        // Vector3 delta = _target.position - lastGroundPosition;
+        // transform.position += new Vector3(delta.x * parallaxMultiplier, 0, 0);
+        // lastGroundPosition = _target.position;
     }
 }

@@ -28,8 +28,7 @@ public class ObjectPool : MonoBehaviour
                 return obj;
             }
         }
-
-        // در صورت نیاز می‌تونی بسازی، ولی بهتره اندازه‌ی Pool ثابت باشه
+        
         return null;
     }
 }

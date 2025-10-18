@@ -1,7 +1,11 @@
 using System;
+using System.Collections;
+using DG.Tweening;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -10,6 +14,9 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private bool _isGround = true;
     [SerializeField] private GroundManager2D _groundManager;
     [SerializeField] private float boostedTime = 3;
+    [SerializeField] private GameObject _coinFX;
+    [SerializeField] private GameObject _dieFX;
+    [SerializeField] private Animator _animator;
     private int fullHealth = 100;
 
     private float verticalVelocity;
@@ -27,6 +34,7 @@ public class Player : MonoBehaviour, IDamageable
 
     void Update()
     {
+        
         FSMController();
         Move();
         CheckDeath();
@@ -47,19 +55,17 @@ public class Player : MonoBehaviour, IDamageable
         switch (currentState)
         {
             case PlayerState.Jump:
-                var rb = transform.GetComponent<Rigidbody2D>();
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                JumpAction();
                 break;
             case PlayerState.Run:
                 isBoosted = true;
                 HUDManager.instace.SwitchBoosted(isBoosted);
                 break;
             case PlayerState.Die:
-                SceneManager.LoadScene(0);
+                GameOverAction();
                 break;
             case PlayerState.Fall:
-                SceneManager.LoadScene(0);
+                GameOverAction();
                 break;
             case PlayerState.Ideal:
                 isBoosted = false;
@@ -67,6 +73,28 @@ public class Player : MonoBehaviour, IDamageable
                 HUDManager.instace.SwitchBoosted(isBoosted);
                 break;
         }
+    }
+
+    private void JumpAction()
+    {
+        var rb = transform.GetComponent<Rigidbody2D>();
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        AudioManager.instance.PlayJump();
+      _animator.SetBool("_jump",true);
+    }
+
+    private void GameOverAction()
+    {
+        AudioManager.instance.PlayGameOver();
+        _animator.CrossFade("Die",0.5f);
+        Instantiate(_dieFX, transform.position, quaternion.identity);
+        Invoke("ReLoad",0.2f);
+    }
+
+    private void ReLoad()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void CheckDeath()
@@ -79,12 +107,25 @@ public class Player : MonoBehaviour, IDamageable
 
     void Move()
     {
-        if (_isGround && Input.GetButtonDown("Jump"))
+        //_animation.Play("Run");
+        if (_isGround && (Input.GetButtonDown("Jump") || IsTouchInput()))
         {
             currentState = PlayerState.Jump;
         }
     }
-
+    private bool IsTouchInput()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+           
+            if (touch.phase == TouchPhase.Began)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public void TakeDamage(int damage)
     {
         _playerHealth -= damage;
@@ -108,8 +149,15 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (other.CompareTag("item"))
         {
-            other.gameObject.SetActive(false);
-            HUDManager.instace.SetPlayerScore(10);
+            AudioManager.instance.PlayCoin();
+            Instantiate(_coinFX, transform.position, quaternion.identity);
+            HUDManager.instace.SetPlayerScore(other.GetComponent<Item>().data.value);
+            other.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.3f)
+                .SetEase(Ease.OutBack).OnComplete((() =>
+                        {
+                            other.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0.2f)
+                                .SetEase(Ease.InOutSine).OnComplete(() => other.gameObject.SetActive(false));
+                        }));
             itemCount++;
             if (itemCount == 10)
             {
@@ -127,6 +175,7 @@ public class Player : MonoBehaviour, IDamageable
         if (other.transform.CompareTag("Ground"))
         {
             _isGround = true;
+            _animator.SetBool("_jump",false);
         }
     }
 
@@ -136,6 +185,7 @@ public class Player : MonoBehaviour, IDamageable
         {
             _isGround = false;
             currentState = PlayerState.Ideal;
+            //_animator.SetTrigger("Run");
         }
     }
 }
