@@ -112,23 +112,23 @@ public class Player : MonoBehaviour, IDamageable
     void Move()
     {
         //_animation.Play("Run");
-        if (_isGround && (Input.GetButtonDown("Jump") || IsTouchInput()))
+        if (_isGround && (Input.GetButtonDown("Jump")))
         {
             currentState = PlayerState.Jump;
         }
     }
     private bool IsTouchInput()
     {
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-           
-            if (touch.phase == TouchPhase.Began)
-            {
-                return true;
-            }
-        }
-        return false;
+        // if (Input.touchCount > 0)
+        // {
+        //     Touch touch = Input.GetTouch(0);
+        //    
+        //     if (touch.phase == TouchPhase.Began)
+        //     {
+        //         return true;
+        //     }
+        // }
+         return false;
     }
     public void TakeDamage(int damage)
     {
@@ -154,13 +154,19 @@ public class Player : MonoBehaviour, IDamageable
         if (other.CompareTag("item"))
         {
             AudioManager.instance.PlayCoin();
-            Instantiate(_coinFX, transform.position, quaternion.identity);
+           var fx=Instantiate(_coinFX, other.transform.position, quaternion.identity);
+           fx.GetComponent<ParticleSystem>().Play();
             HUDManager.instace.SetPlayerScore(other.GetComponent<Item>().data.value);
-            other.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.3f)
+            other.transform.DOScale(new Vector3(0.5f, 0.8f, 0.5f), 0.3f)
                 .SetEase(Ease.OutBack).OnComplete((() =>
                         {
-                            other.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0.2f)
-                                .SetEase(Ease.InOutSine).OnComplete(() => other.gameObject.SetActive(false));
+                            other.transform.DOScale(new Vector3(0.2f, 0.5f, 0.2f), 0.2f)
+                                .SetEase(Ease.InOutSine).OnComplete(() =>
+                                {
+                                    other.gameObject.SetActive(false);
+                                    Destroy(fx);
+                                    other.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.2f);
+                                });
                         }));
             itemCount++;
             if (itemCount == 10)

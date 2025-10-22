@@ -11,6 +11,7 @@
         [SerializeField] private TextMeshProUGUI _playerHealthtxt;
         [SerializeField] private TextMeshProUGUI _playerScoretxt;
         [SerializeField] private TextMeshProUGUI _playerItemtxt;
+        [SerializeField] private GameObject _playerItemPic;
         [SerializeField] private TextMeshProUGUI _boostedItem;
         [SerializeField] private TextMeshProUGUI _bonesTXT;
         
@@ -54,6 +55,7 @@
             _startPanel.SetActive(false);
             Time.timeScale = 1;
             PlayerPrefs.SetInt("Highscore",0);
+            _playerHealthtxt.text = _playerHealth.ToString();
         }
 
         public void Quit()
@@ -64,7 +66,8 @@
         public void Continue()
         {
             var highScore = PlayerPrefs.GetInt("Highscore");
-            _playerScoretxt.text ="Score: "+ highScore.ToString();
+            _playerScoretxt.text = highScore.ToString();
+            _playerHealthtxt.text = _playerHealth.ToString();
             _playerScore = highScore;
             _startPanel.SetActive(false);
             Time.timeScale = 1;
@@ -79,14 +82,14 @@
         public  void SetPlayerHealth(int damage)
         {
             _playerHealth -= damage;
-            _playerHealthtxt.text = "Health: "+_playerHealth.ToString();
+            _playerHealthtxt.text = _playerHealth.ToString();
             ScaleBounce(_playerHealthtxt.transform);
         }
 
         public void SetPlayerScore(int score)
         {
             _playerScore += score;
-            _playerScoretxt.text ="Score: "+ _playerScore.ToString();
+            _playerScoretxt.text = _playerScore.ToString();
             SaveScore();
             CheckPrize(_playerScore);
         }
@@ -146,9 +149,9 @@
 
         public void SetItemCount(int count)
         {
-            _playerItemtxt.gameObject.SetActive(count!=0);
+            _playerItemPic.gameObject.SetActive(count!=0);
             _playerItemtxt.text = count + "X";
-            if (_playerItemtxt.gameObject.activeInHierarchy)
+            if (_playerItemPic.gameObject.activeInHierarchy)
             {
                 ScaleBounce(_playerItemtxt.transform);
             }

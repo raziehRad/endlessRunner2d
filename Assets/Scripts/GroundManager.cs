@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class GroundManager2D : MonoBehaviour
@@ -67,8 +68,8 @@ public class GroundManager2D : MonoBehaviour
                 newGround.transform.GetChild(i).gameObject.SetActive(false);
                 newGround.transform.GetChild(i).SetParent(transform);
             }
-            SpawnItem(newGround,_itemPool);
-            if (!check) SpawnItem(newGround,_enemyPool);
+            SpawnItem(newGround,_itemPool,check);
+            if (!check) SpawnItem(newGround,_enemyPool,check);
         }
         return newGround;
     }
@@ -84,7 +85,7 @@ public class GroundManager2D : MonoBehaviour
         }
     }
 
-    private void SpawnItem(GameObject newGround,ObjectPool pool)
+    private void SpawnItem(GameObject newGround, ObjectPool pool, bool check)
     {
         var chanceExist = Random.Range(0f, 1f);
         if (chanceExist>0.5f) return;
@@ -96,9 +97,10 @@ public class GroundManager2D : MonoBehaviour
         var item = pool.GetFromPool();
         if (item != null)
         {
-            item.transform.position = new Vector3(xpos, newGround.transform.position.y + 2);
+            item.transform.position = new Vector3(xpos, newGround.transform.position.y + 3);
             item.SetActive(true);
            item.transform.SetParent(newGround.transform);
+           if (check) item.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.01f);
         }
     }
     private void CheckForRecycle()
