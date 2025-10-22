@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private GameObject[] prefabs;
     [SerializeField] private int poolSize = 5;
 
     private List<GameObject> pool = new List<GameObject>();
@@ -12,7 +13,8 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject obj = Instantiate(prefab);
+            var rand = Random.Range(0, prefabs.Length);
+            GameObject obj = Instantiate(prefabs[rand]);
             obj.SetActive(false);
             pool.Add(obj);
         }

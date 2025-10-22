@@ -17,6 +17,10 @@ public class ShotGun : Weapon
         }
     }
 
+    public void FireButton()
+    {
+        Fire();
+    }
     public override void Fire()
     {
         var bollet = Instantiate(_bolletPrefab, _instancePosition.position, Quaternion.identity, transform);

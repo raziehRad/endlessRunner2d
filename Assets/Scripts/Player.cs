@@ -84,6 +84,10 @@ public class Player : MonoBehaviour, IDamageable
       _animator.SetBool("_jump",true);
     }
 
+    public void JumpButton()
+    {
+        if (_isGround) currentState = PlayerState.Jump;
+    }
     private void GameOverAction()
     {
         AudioManager.instance.PlayGameOver();
