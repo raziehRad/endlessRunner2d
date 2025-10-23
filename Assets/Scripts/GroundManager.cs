@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GroundManager2D : MonoBehaviour
 {
-   [SerializeField] private ObjectPool groundPrefab;
-   [SerializeField] private ObjectPool _itemPool;
-   [SerializeField] private ObjectPool _enemyPool;
-   [SerializeField] private ObjectPool _backPool;
-   [SerializeField] private int initialGrounds = 5;
-   [SerializeField] public float moveSpeed = 5f;
-   [SerializeField] private float moveSpeedBack = 2f;
+    [SerializeField] private ObjectPool groundPrefab;
+    [SerializeField] private ObjectPool _itemPool;
+    [SerializeField] private ObjectPool _enemyPool;
+    [SerializeField] private ObjectPool _backPool;
+    [SerializeField] private int initialGrounds = 5;
+    [SerializeField] public float moveSpeed = 5f;
+    [SerializeField] private float moveSpeedBack = 2f;
 
     [Header("X Spawn")] public Vector2 Xspawning = new Vector2(1, 3);
 
@@ -25,11 +25,12 @@ public class GroundManager2D : MonoBehaviour
         for (int i = 0; i < initialGrounds; i++)
         {
             float yPos = Random.Range(Yspawning.x, Yspawning.y);
-            GameObject go = SpawnGround(spawnX, yPos,true);
+            GameObject go = SpawnGround(spawnX, yPos, true);
             float spacing = Random.Range(Xspawning.x, Xspawning.y);
             spawnX += GetWidth(go) + spacing;
         }
     }
+
     void Update()
     {
         MoveGrounds();
@@ -68,9 +69,11 @@ public class GroundManager2D : MonoBehaviour
                 newGround.transform.GetChild(i).gameObject.SetActive(false);
                 newGround.transform.GetChild(i).SetParent(transform);
             }
-            SpawnItem(newGround,_itemPool,check);
-            if (!check) SpawnItem(newGround,_enemyPool,check);
+
+            SpawnItem(newGround, _itemPool, ItemType.item);
+            if (!check) SpawnItem(newGround, _enemyPool, ItemType.enemy);
         }
+
         return newGround;
     }
 
@@ -85,24 +88,32 @@ public class GroundManager2D : MonoBehaviour
         }
     }
 
-    private void SpawnItem(GameObject newGround, ObjectPool pool, bool check)
+    private void SpawnItem(GameObject newGround, ObjectPool pool, ItemType type)
     {
         var chanceExist = Random.Range(0f, 1f);
-        if (chanceExist>0.5f) return;
+        if (chanceExist > 0.5f) return;
         var chancePos = Random.Range(0f, 1f);
-        float xpos=newGround.transform.position.x;
-        if (chancePos<0.35) xpos= newGround.transform.position.x;//middle
-        else if(chancePos>0.35 && chancePos<0.7) xpos=newGround.transform.position.x + (GetWidth(newGround)/2f)-2;//left
-        else if(chancePos>0.7)xpos=newGround.transform.position.x - (GetWidth(newGround)/2f)+2;//right
+        float xpos = newGround.transform.position.x;
+        if (chancePos < 0.35) xpos = newGround.transform.position.x; //middle
+        else if (chancePos > 0.35 && chancePos < 0.7)
+            xpos = newGround.transform.position.x + (GetWidth(newGround) / 2f) - 2; //left
+        else if (chancePos > 0.7) xpos = newGround.transform.position.x - (GetWidth(newGround) / 2f) + 2; //right
         var item = pool.GetFromPool();
         if (item != null)
         {
-            item.transform.position = new Vector3(xpos, newGround.transform.position.y + 3);
+            if (type== ItemType.enemy)
+            {
+                var data = item.GetComponent<FlyingDamage>().data;
+                item.transform.position = new Vector3(xpos, newGround.transform.position.y + data.ypos);
+            }
+            else item.transform.position = new Vector3(xpos, newGround.transform.position.y + 3);
+
             item.SetActive(true);
-           item.transform.SetParent(newGround.transform);
-           if (check) item.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.01f);
+            item.transform.SetParent(newGround.transform);
+            if (type== ItemType.item) item.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.01f);
         }
     }
+
     private void CheckForRecycle()
     {
         if (grounds.Count <= 0) return;
@@ -116,16 +127,18 @@ public class GroundManager2D : MonoBehaviour
             float yPos = Random.Range(Yspawning.x, Yspawning.y);
             firstGround.SetActive(false);
             grounds.RemoveAt(0);
-            SpawnGround(spawnX, yPos,false);
+            SpawnGround(spawnX, yPos, false);
         }
     }
+
     private void CheckForRecycleBack()
     {
         if (Backs.Count <= 0) return;
         GameObject firstBack = Backs[0];
         GameObject lastBack = Backs[Backs.Count - 1];
         float rightEdge = Camera.main.transform.position.x + Camera.main.orthographicSize * Camera.main.aspect;
-        if (_backPool != null && lastBack.transform.position.x + GetWidth(lastBack) / 2 < rightEdge + GetWidth(_backPool.gameObject))
+        if (_backPool != null && lastBack.transform.position.x + GetWidth(lastBack) / 2 <
+            rightEdge + GetWidth(_backPool.gameObject))
         {
             float spacing = Random.Range(Xspawning.x, Xspawning.y);
             float spawnX = lastBack.transform.position.x + GetWidth(lastBack) + spacing;
@@ -135,11 +148,13 @@ public class GroundManager2D : MonoBehaviour
             SpawnBack(spawnX, yPos);
         }
     }
+
     float GetWidth(GameObject obj)
     {
-        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>(); 
+        Ground sr = obj.GetComponent<Ground>();
+        // Debug.Log(           sr.GetComponent<SpriteRenderer>().bounds.size.x);
         if (sr != null)
-            return sr.bounds.size.x;
+            return sr.data.width;
         else
             return 10f;
     }

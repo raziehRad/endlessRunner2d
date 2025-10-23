@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb2a0bb8ae914b818e80a919bfa90df9, type: 3}
-  m_Name: flying
+  m_Script: {fileID: 11500000, guid: bdadf64d08e749c6b1e495b817fd166b, type: 3}
+  m_Name: ground 2
   m_EditorClassIdentifier: 
-  enemyName: Flying
-  health: 60
-  speed: 10
-  damage: 20
-  score: 20
-  ypos: 2
-  type: 1
+  width: 15
+  image: {fileID: 2678619245760780185, guid: 9ea8af7dfb0fbc14dbcb7de76e704fe9, type: 3}

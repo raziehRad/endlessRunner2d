@@ -7,4 +7,10 @@
         public string itemName;
         public Sprite icon;
         public int value;
+        public ItemType type= ItemType.item;
+    }
+
+    public enum ItemType
+    {
+        item,enemy
     }
