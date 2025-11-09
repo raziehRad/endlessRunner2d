@@ -14,6 +14,7 @@
         [SerializeField] private GameObject _playerItemPic;
         [SerializeField] private TextMeshProUGUI _boostedItem;
         [SerializeField] private TextMeshProUGUI _bonesTXT;
+        [SerializeField] private TextMeshProUGUI _highScoreTxt;
         
         [SerializeField] private GameObject _startPanel;
         [SerializeField] private GameObject _continue;
@@ -32,6 +33,7 @@
         {
             Time.timeScale = 0;
             var highScore = PlayerPrefs.GetInt("Highscore");
+            _highScoreTxt.text = highScore.ToString();
             _continue.SetActive(highScore != 0);
         }
 
@@ -100,6 +102,8 @@
             if (_playerScore>highScore)
             {
                 PlayerPrefs.SetInt("Highscore",_playerScore);
+                _highScoreTxt.text = _playerScore.ToString();
+                FirebaseAnalytics.Instance.LogLevelComplete(highScore);
             }
         }
 
@@ -168,5 +172,13 @@
             _boostedItem.gameObject.SetActive(isBoosted);
             if (isBoosted)
                 ScaleBounce(_boostedItem.transform);
+        }
+
+        public void SaveData(int reward)
+        {
+            var highscore = PlayerPrefs.GetInt("Highscore");
+            highscore += reward;
+            PlayerPrefs.SetInt("Highscore", highscore);
+            _highScoreTxt.text = highscore.ToString();
         }
     }

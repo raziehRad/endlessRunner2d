@@ -101,15 +101,14 @@ public class GroundManager2D : MonoBehaviour
         var item = pool.GetFromPool();
         if (item != null)
         {
+            item.SetActive(true);
+            item.transform.SetParent(newGround.transform);
             if (type== ItemType.enemy)
             {
                 var data = item.GetComponent<FlyingDamage>().data;
                 item.transform.position = new Vector3(xpos, newGround.transform.position.y + data.ypos);
             }
             else item.transform.position = new Vector3(xpos, newGround.transform.position.y + 3);
-
-            item.SetActive(true);
-            item.transform.SetParent(newGround.transform);
             if (type== ItemType.item) item.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.01f);
         }
     }

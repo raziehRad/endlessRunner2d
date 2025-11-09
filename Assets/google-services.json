@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "152297163853",
+    "project_id": "endless-runner-2",
+    "storage_bucket": "endless-runner-2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152297163853:android:8edb8fe11dcc976647a004",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.endlessrunner2d"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGS0kpO5C6O5glW-G62IEhXY8bCUT_4-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
