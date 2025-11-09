@@ -32,7 +32,7 @@
         private void StartSetting()
         {
             Time.timeScale = 0;
-            var highScore = PlayerPrefs.GetInt("Highscore");
+            var highScore =  SaveManager.LoadHighScore();
             _highScoreTxt.text = highScore.ToString();
             _continue.SetActive(highScore != 0);
         }
@@ -56,7 +56,7 @@
         {
             _startPanel.SetActive(false);
             Time.timeScale = 1;
-            PlayerPrefs.SetInt("Highscore",0);
+            SaveManager.SaveHighScore(0);
             _playerHealthtxt.text = _playerHealth.ToString();
         }
 
@@ -67,7 +67,7 @@
 
         public void Continue()
         {
-            var highScore = PlayerPrefs.GetInt("Highscore");
+            var highScore =  SaveManager.LoadHighScore();
             _playerScoretxt.text = highScore.ToString();
             _playerHealthtxt.text = _playerHealth.ToString();
             _playerScore = highScore;
@@ -90,18 +90,29 @@
 
         public void SetPlayerScore(int score)
         {
-            _playerScore += score;
+            AddScore(score);
             _playerScoretxt.text = _playerScore.ToString();
-            SaveScore();
             CheckPrize(_playerScore);
         }
 
+        public void AddScore(int amount)
+        {
+            _playerScore += amount;
+            var highScore= SaveManager.LoadHighScore();
+            if (_playerScore > highScore)
+            {
+                highScore = _playerScore;
+                SaveManager.SaveHighScore(highScore);
+                Debug.Log("New HighScore Saved: " + highScore);
+                FirebaseAnalytics.Instance.LogLevelComplete(highScore);
+            }
+        }
         private void SaveScore()
         {
-            var highScore=PlayerPrefs.GetInt("Highscore");
+            var highScore= SaveManager.LoadHighScore();
             if (_playerScore>highScore)
             {
-                PlayerPrefs.SetInt("Highscore",_playerScore);
+                //PlayerPrefs.SetInt("Highscore",_playerScore);
                 _highScoreTxt.text = _playerScore.ToString();
                 FirebaseAnalytics.Instance.LogLevelComplete(highScore);
             }
@@ -176,9 +187,14 @@
 
         public void SaveData(int reward)
         {
-            var highscore = PlayerPrefs.GetInt("Highscore");
+            var highscore = SaveManager.LoadHighScore();
             highscore += reward;
-            PlayerPrefs.SetInt("Highscore", highscore);
+           // PlayerPrefs.SetInt("Highscore", highscore);
             _highScoreTxt.text = highscore.ToString();
         }
+    }
+    [System.Serializable]
+    public class SaveData
+    {
+        public int highScore;
     }
