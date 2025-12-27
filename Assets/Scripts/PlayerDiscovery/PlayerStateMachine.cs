@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace
@@ -9,6 +10,15 @@ namespace DefaultNamespace
 
         [SerializeField] private PlayerMovement _movement;
         [SerializeField] private PlayerBoost _boost;
+        [SerializeField] private GameObject _dieFX;
+        
+        private Animator _animator;
+
+        void Start()
+        {
+            currenctState = PlayerState.Ideal;
+            _animator = GetComponent<Animator>();
+        }
 
         public void ChangeState(PlayerState newState)
         {
@@ -22,9 +32,10 @@ namespace DefaultNamespace
                     _boost.EnableBoost(); 
                     break;
                 case PlayerState.Die:
+                    GameOverAction();
                     break;
                 case PlayerState.Fall:
-                    SceneManager.LoadScene(0);
+                    GameOverAction();
                     break;
                 case PlayerState.Ideal:
                     _boost.DisableBoost();
@@ -34,8 +45,20 @@ namespace DefaultNamespace
 
         public void Tick()
         {
-            if (transform.position.y<-9)
-                ChangeState(PlayerState.Fall);
+            ChangeState(transform.position.y < -9 ? PlayerState.Fall : currenctState);
+        }
+        
+        private void GameOverAction()
+        {
+            AudioManager.instance.PlayGameOver();
+            _animator.CrossFade("Die",0.5f);
+            Instantiate(_dieFX, transform.position, quaternion.identity);
+            Invoke("ReLoad",0.2f);
+        }
+        
+        private void ReLoad()
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }

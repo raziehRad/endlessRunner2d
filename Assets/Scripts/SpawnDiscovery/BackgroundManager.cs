@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
@@ -8,10 +10,18 @@ namespace DefaultNamespace
         [SerializeField] private ObjectPool backPool;
         [SerializeField] private float moveSpeed = 2f;
         [SerializeField] private Vector2 yOffsetRange = new Vector2(3, 8);
-
+        [Header("X Spawn")] private Vector2 Xspawning = new Vector2(1, 3);
+        
+        [Header("Y Spawn")] private Vector2 Yspawning = new Vector2(-1, 1);
         private readonly List<GameObject> backs = new();
 
         public IReadOnlyList<GameObject> Backs => backs;
+        private GroundSpawner _spawner;
+
+        private void Start()
+        {
+            _spawner = GetComponent<GroundSpawner>();
+        }
 
         public void Spawn(float x, float groundY)
         {
@@ -46,11 +56,16 @@ namespace DefaultNamespace
             float rightEdge = Camera.main.transform.position.x +
                               Camera.main.orthographicSize * Camera.main.aspect;
 
-            if (last.transform.position.x < rightEdge)
+            if (backPool != null && last.transform.position.x+ _spawner.GetWidth(last)/2 
+                <rightEdge+ _spawner.GetWidth(backPool.gameObject))
             {
+                float spacing = Random.Range(Xspawning.x, Xspawning.y);
+                float spawnX = last.transform.position.x +_spawner. GetWidth(last) + spacing;
+                float yPos = Random.Range(Yspawning.x, Yspawning.y);
+                
                 first.SetActive(false);
                 backs.RemoveAt(0);
-                Spawn(last.transform.position.x + 10f, last.transform.position.y);
+                Spawn(spawnX, yPos);
             }
         }
 

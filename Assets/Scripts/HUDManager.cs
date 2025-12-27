@@ -6,7 +6,7 @@
 
     public class HUDManager : MonoBehaviour
     {
-        public static HUDManager instace;
+        public static HUDManager Instance;
 
         [SerializeField] private TextMeshProUGUI _playerHealthtxt;
         [SerializeField] private TextMeshProUGUI _playerScoretxt;
@@ -25,7 +25,7 @@
 
         private void Awake()
         {
-            instace = this;
+            Instance = this;
             StartSetting();
         }
 

@@ -14,7 +14,7 @@ public class FlyingDamage : Enemy
         if (Data.health<=0)
         {
           
-            HUDManager.instace.SetPlayerScore(Data.score);
+            HUDManager.Instance.SetPlayerScore(Data.score);
             gameObject.SetActive(false);
             Data.health = 100;
         }

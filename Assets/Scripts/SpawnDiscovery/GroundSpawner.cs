@@ -16,14 +16,15 @@ namespace DefaultNamespace
 
         private readonly List<GameObject> grounds = new();
         public IReadOnlyList<GameObject> Grounds => grounds;
+        public ObjectPool GroundPool => groundPool;
 
         public void Initialize()
         {
             float spawnX = 0f;
             for (int i = 0; i < initialGround; i++)
             {
-                Spawn(spawnX, Random.Range(yRange.x, yRange.y), true);
-                spawnX += GetWidth(grounds[^1]) + Random.Range(xSpacing.x, xSpacing.y);
+                var go = Spawn(spawnX, Random.Range(yRange.x, yRange.y), true);
+                spawnX += GetWidth(go) + Random.Range(xSpacing.x, xSpacing.y);
             }
         }
 
@@ -35,9 +36,19 @@ namespace DefaultNamespace
             ground.SetActive(true);
             grounds.Add(ground);
 
-            _background.Spawn(x, y);
+            _background.Spawn(x, y); 
+            DeChildItems(ground);
             _itemSpawner.SpawnItems(ground, safeSpawn);
             return ground;
+        }
+
+        private static void DeChildItems(GameObject ground)
+        {
+            for (int i = 0; i < ground.transform.childCount; i++)
+            {
+                ground.transform.GetChild(i).gameObject.SetActive(false);
+                ground.transform.GetChild(i).SetParent(null);
+            }
         }
 
         public void Recycle(GameObject ground)
@@ -46,7 +57,7 @@ namespace DefaultNamespace
             grounds.Remove(ground);
         }
 
-        float GetWidth(GameObject obj)
+       public float GetWidth(GameObject obj)
         {
             var g = obj.GetComponent<Ground>();
             return g != null ? g.Data.width : 10f;

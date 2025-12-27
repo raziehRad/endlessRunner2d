@@ -18,8 +18,8 @@ namespace DefaultNamespace
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
-            HUDManager.instace.SetPlayerHealth(currentHealth);
-
+            HUDManager.Instance.SetPlayerHealth(currentHealth);
+            HUDManager.Instance.SetItemCount(0);
             if (currentHealth<=0)
             {
                 _stateMachine.ChangeState(PlayerState.Die);

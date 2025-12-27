@@ -15,16 +15,16 @@ namespace DefaultNamespace
         public void EnableBoost()
         {
             isBoosted = true;
-            timer = boostDuration;
+            HUDManager.Instance.SwitchBoosted(true);
             StartCoroutine(BoostTimer());
+            
             var speed= ground.Mover.MoveSpeed + 2;
             ground.SetMoveSpeed(speed) ;
-            HUDManager.instace.SwitchBoosted(true);
         }
 
         private IEnumerator BoostTimer()
         {
-            yield return new WaitForSeconds(timer);
+            yield return new WaitForSeconds(boostDuration);
             DisableBoost();
         }
 
@@ -35,7 +35,7 @@ namespace DefaultNamespace
             isBoosted = false;
             StopCoroutine(BoostTimer());
             ground.SetMoveSpeed(5) ;
-            HUDManager.instace.SwitchBoosted(false);
+            HUDManager.Instance.SwitchBoosted(false);
         }
         
     }

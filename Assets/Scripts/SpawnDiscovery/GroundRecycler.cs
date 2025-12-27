@@ -17,13 +17,14 @@ namespace DefaultNamespace
 
             float rightEdge = Camera.main.transform.position.x +
                               Camera.main.orthographicSize * Camera.main.aspect;
-            if (last.transform.position.x<rightEdge)
+            if (last.transform.position.x+ _spawner.GetWidth(last)/2 <rightEdge+ _spawner.GetWidth(_spawner.GroundPool.gameObject))
             {
-                float x = last.transform.position.x + Random.Range(xSpacing.x, xSpacing.y);
+                float spacing = Random.Range(xSpacing.x, xSpacing.y);
+                float spawnX = last.transform.position.x + _spawner.GetWidth(last) + spacing;
                 float y = Random.Range(yRange.x, yRange.y);
                 
                 _spawner.Recycle(first);
-                _spawner.Spawn(x, y, false);
+                _spawner.Spawn(spawnX, y, false);
             }
         }
     }
