@@ -1,8 +1,10 @@
 ﻿
+    using UnityEngine;
+
     public class User
     {
-        public string name;
-        public int gold;
+        [SerializeField] private string name;
+        [SerializeField] private int gold;
 
         public User(string name, int gold)
         {

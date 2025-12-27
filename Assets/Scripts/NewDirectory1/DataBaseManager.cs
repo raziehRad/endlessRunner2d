@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class DataBaseManager : MonoBehaviour
 {
-    public TMP_InputField Name;
-    public TMP_InputField Gold;
+   [SerializeField] private TMP_InputField Name;
+   [SerializeField] private TMP_InputField Gold;
     
     private string userID;
     //private DatabaseReference dbReference;

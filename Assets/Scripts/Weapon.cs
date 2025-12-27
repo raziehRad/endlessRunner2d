@@ -1,18 +1,16 @@
+using DefaultNamespace;
+using UnityEngine;
 
-    using UnityEngine;
+public class Weapon : MonoBehaviour
+{
+    [SerializeField] private ItemData data;
 
-    public class Weapon : MonoBehaviour
+    public ItemData Data => data;
+
+    public virtual void Fire() { }
+
+    public virtual void TakeDamage(IDamageable iDamageable)
     {
-        public ItemData data;
-        // public int _damage;
-
-        public virtual void Fire()
-        {
-            
-        }
-
-        public virtual void TakeDamage(IDamageable iDamageable)
-        {
-            iDamageable.TakeDamage(data.value);
-        }
+        iDamageable.TakeDamage(Data.value);
     }
+}

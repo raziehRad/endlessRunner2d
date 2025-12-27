@@ -3,8 +3,8 @@
 
     public class DifficultyManager : MonoBehaviour
     {
-        public DifficultyCurve difficulty;
-        public int currentLevel;
+        [SerializeField] private DifficultyCurve difficulty;
+        [SerializeField] private int currentLevel;
 
         public float GetHealthMultiplier()
         {

@@ -12,8 +12,7 @@ public static class SaveManager
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
-
-        Debug.Log("Saved: " + json);
+        
     }
 
     public static int LoadHighScore()
@@ -26,7 +25,6 @@ public static class SaveManager
         }
         else
         {
-            Debug.Log("No save file found. Returning 0.");
             return 0;
         }
     }

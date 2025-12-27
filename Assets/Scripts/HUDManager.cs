@@ -103,8 +103,8 @@
             {
                 highScore = _playerScore;
                 SaveManager.SaveHighScore(highScore);
-                Debug.Log("New HighScore Saved: " + highScore);
-                FirebaseAnalytics.Instance.LogLevelComplete(highScore);
+              //  Debug.Log("New HighScore Saved: " + highScore);
+                //FirebaseAnalytics.Instance.LogLevelComplete(highScore);
             }
         }
         private void SaveScore()
@@ -114,7 +114,7 @@
             {
                 //PlayerPrefs.SetInt("Highscore",_playerScore);
                 _highScoreTxt.text = _playerScore.ToString();
-                FirebaseAnalytics.Instance.LogLevelComplete(highScore);
+               // FirebaseAnalytics.Instance.LogLevelComplete(highScore);
             }
         }
 

@@ -17,5 +17,5 @@ MonoBehaviour:
   speed: 10
   damage: 20
   score: 0
-  ypos: 1
+  ypos: 2
   type: 1

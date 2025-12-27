@@ -3,7 +3,6 @@
 
     public class Item : MonoBehaviour
     {
-        public ItemData data;
-        
-        
+        [SerializeField] private ItemData data;
+        public ItemData Data => data;
     }
