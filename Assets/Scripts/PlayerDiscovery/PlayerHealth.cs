@@ -10,13 +10,23 @@ namespace DefaultNamespace
 
         private PlayerStateMachine _stateMachine;
 
+        private bool isShieldOn;
+
+        
         private void Awake()
         {
             _stateMachine = GetComponent<PlayerStateMachine>();
+            currentHealth = maxHealth;
         }
 
+        public void SetShield(bool value)
+        {
+            isShieldOn = value;
+        }
         public void TakeDamage(int damage)
         {
+            if (isShieldOn) return;
+            
             currentHealth -= damage;
             HUDManager.Instance.SetPlayerHealth(currentHealth);
             HUDManager.Instance.SetItemCount(0);
@@ -24,6 +34,15 @@ namespace DefaultNamespace
             {
                 _stateMachine.ChangeState(PlayerState.Die);
             }
+        }
+
+        public void Heal(int itemValue)
+        {
+            if (currentHealth >= maxHealth) return;
+            currentHealth += itemValue;
+            if (currentHealth>maxHealth)
+                currentHealth = maxHealth;
+            HUDManager.Instance.SetPlayerHealth(currentHealth);
         }
     }
 }

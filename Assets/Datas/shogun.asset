@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: shogun
   m_EditorClassIdentifier: 
   itemName: ShotGun
-  icon: {fileID: 0}
+  icon: {fileID: 2950869812727453837, guid: e5f86ef5981ed0545a6b9b336380d4ce, type: 3}
+  itemType: 0
+  effect: 0
   value: 60
+  duration: 0

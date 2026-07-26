@@ -9,12 +9,14 @@ public static class SaveManager
     {
         SaveData data = new SaveData();
         data.highScore = score;
-
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(savePath, json);
-        
+        Save(data);
     }
 
+    private static void Save(SaveData data)
+    {
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(savePath, json);
+    }
     public static int LoadHighScore()
     {
         if (File.Exists(savePath))
@@ -22,6 +24,27 @@ public static class SaveManager
             string json = File.ReadAllText(savePath);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
             return data.highScore;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public static void SaveCharacter(int currentIndex)
+    {
+        SaveData data = new SaveData();
+        data.characterIndex = currentIndex;
+
+        Save(data);
+    }
+    public static int LoadCharacter()
+    {
+        if (File.Exists(savePath))
+        {
+            string json = File.ReadAllText(savePath);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            return data.characterIndex;
         }
         else
         {

@@ -25,6 +25,7 @@ public class FlyingDamage : Enemy
         if (other.CompareTag("Player"))
         {
             Attack(other.transform.GetComponent<Player>());
+            gameObject.SetActive(false);
         }
     }
 }

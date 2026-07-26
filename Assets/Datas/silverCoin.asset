@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: silver coin
   icon: {fileID: 0}
+  itemType: 0
+  effect: 6
   value: 10
+  duration: 0

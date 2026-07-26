@@ -19,15 +19,13 @@ namespace DefaultNamespace
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("item"))
+            if (other.TryGetComponent(out Item item))
             {
-                AudioManager.instance.PlayCoin();
-               SpawnCoinEffect(other);
-               HUDManager.Instance.SetItemCount(itemCount);
+                item.Collect(GetComponent<Player>(),other);
             }
         }
         
-        private void SpawnCoinEffect(Collider2D other)
+        public void SpawnCoinEffect(Collider2D other,int score)
         {
             var fx = Instantiate(_coinFX, other.transform.position, quaternion.identity);
             fx.GetComponent<ParticleSystem>().Play();
@@ -43,13 +41,13 @@ namespace DefaultNamespace
                             other.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.2f);
                         });
                 }));
-            itemCount++;
-            if (itemCount == 10)
+            score++;
+            if (score == 10)
             {
                 _playerStateMachine.ChangeState(PlayerState.Run);
                 var speed= ground.Mover.MoveSpeed + 2;
                 ground.SetMoveSpeed(speed) ;
-                itemCount = 0;
+                score = 0;
             }
         }
     }

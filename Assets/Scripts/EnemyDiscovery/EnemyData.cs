@@ -10,5 +10,5 @@
         public float damage=20;
         public int score=20;
         public int ypos=1;
-        public ItemType type =ItemType.enemy;
+        public ItemType type =ItemType.Enemy;
     }

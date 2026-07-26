@@ -1,8 +1,10 @@
 ﻿
     using System;
+    using System.Collections;
     using DG.Tweening;
     using TMPro;
     using UnityEngine;
+    using UnityEngine.UI;
 
     public class HUDManager : MonoBehaviour
     {
@@ -15,13 +17,20 @@
         [SerializeField] private TextMeshProUGUI _boostedItem;
         [SerializeField] private TextMeshProUGUI _bonesTXT;
         [SerializeField] private TextMeshProUGUI _highScoreTxt;
+        [SerializeField] private Image shieldTimerImage;
+        [SerializeField] private Image powerUpTimerImage;
+        [SerializeField] private Image flyingTimerImage;
         
         [SerializeField] private GameObject _startPanel;
+        [SerializeField] private GameObject characterPanel;
         [SerializeField] private GameObject _continue;
         [SerializeField] private GameObject _rePlay;
         [SerializeField] private GameObject _play;
         private int _playerHealth=100;
         private int _playerScore;
+        private CharacterData characterData;
+        
+
 
         private void Awake()
         {
@@ -35,8 +44,9 @@
             var highScore =  SaveManager.LoadHighScore();
             _highScoreTxt.text = highScore.ToString();
             _continue.SetActive(highScore != 0);
+            GameManager.Instance.Player.SetCharacter();
         }
-
+        
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -52,6 +62,10 @@
             }
         }
 
+        public void OpenSelectPanel()
+        {
+            characterPanel.SetActive(true);
+        }
         public void Play()
         {
             _startPanel.SetActive(false);
@@ -83,7 +97,7 @@
         
         public  void SetPlayerHealth(int damage)
         {
-            _playerHealth -= damage;
+            _playerHealth = damage;
             _playerHealthtxt.text = _playerHealth.ToString();
             ScaleBounce(_playerHealthtxt.transform);
         }
@@ -192,9 +206,74 @@
            // PlayerPrefs.SetInt("Highscore", highscore);
             _highScoreTxt.text = highscore.ToString();
         }
+
+        public void ShieldBoosted(float itemDuration)
+        {
+            StartCoroutine(ShieldCoroutine(itemDuration));
+
+        }
+
+        private IEnumerator ShieldCoroutine(float itemDuration)
+        {
+            shieldTimerImage.gameObject.SetActive(true);
+            float timer = itemDuration;
+
+            while (timer > 0)
+            {
+                timer -= Time.deltaTime;
+
+                shieldTimerImage.fillAmount = timer / itemDuration;
+
+                yield return null;
+            }
+            shieldTimerImage.gameObject.SetActive(false);
+        }
+
+        public void PowerUpBoosted(float itemDuration)
+        {
+            StartCoroutine(PowerUpCoroutine(itemDuration));
+        }
+
+        private IEnumerator PowerUpCoroutine(float itemDuration)
+        {
+            powerUpTimerImage.gameObject.SetActive(true);
+            float timer = itemDuration;
+
+            while (timer > 0)
+            {
+                timer -= Time.deltaTime;
+
+                powerUpTimerImage.fillAmount = timer / itemDuration;
+
+                yield return null;
+            }
+            powerUpTimerImage.gameObject.SetActive(false);
+        }
+
+        public void FlyingBoosted(float itemDuration)
+        {
+            StartCoroutine(FlyingCoroutine(itemDuration));
+        }
+
+        private IEnumerator FlyingCoroutine(float itemDuration)
+        {
+           flyingTimerImage.gameObject.SetActive(true);
+            float timer = itemDuration;
+
+            while (timer > 0)
+            {
+                timer -= Time.deltaTime;
+
+                flyingTimerImage.fillAmount = timer / itemDuration;
+
+                yield return null;
+            }
+            flyingTimerImage.gameObject.SetActive(false);
+        }
     }
     [System.Serializable]
     public class SaveData
     {
         public int highScore;
+        public int characterIndex;
     }

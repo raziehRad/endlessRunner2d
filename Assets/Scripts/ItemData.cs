@@ -6,11 +6,52 @@
     {
         public string itemName;
         public Sprite icon;
+        [Header("General")]
+        public ItemType itemType = ItemType.Item;
+
+        
+        [Header("Item")]
+        public ItemEffect effect;
         public int value;
-        public ItemType type= ItemType.item;
+        public float duration;
     }
 
     public enum ItemType
     {
-        item,enemy
+        Item,Enemy
+    }
+    public enum ItemEffect
+    {
+        None,
+
+        // Health
+        Heal,
+
+        // Defense
+        Shield,
+        Invincible,
+
+        // Score
+        AddScore,
+        DoubleScore,
+
+        // Coins
+        AddCoin,
+        Magnet,
+
+        // Weapons
+        WeaponUpgrade,
+        FireBullet,
+        Bomb,
+
+        // Movement
+        SpeedBoost,
+        SlowMotion,
+
+        // Negative
+        Poison,
+        Slow,
+        Stun,
+        
+        Flying
     }

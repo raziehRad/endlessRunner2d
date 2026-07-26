@@ -18,18 +18,17 @@ namespace DefaultNamespace
 
         public void SpawnItems(GameObject ground, bool safeSpawn)
         {
-            TrySpawn(ground, itemPool, ItemType.item);
+            TrySpawn(ground, itemPool, ItemType.Item);
 
             if (!safeSpawn)
             {
-                TrySpawn(ground, enemyPool, ItemType.enemy);
+                TrySpawn(ground, enemyPool, ItemType.Enemy);
             }
         }
 
         private void TrySpawn(GameObject ground, ObjectPool pool, ItemType type)
         {
             if (Random.value>0.5f)return;
-            
             var xpos= SetXPosition(ground);
             
             var item = pool.GetFromPool();
@@ -38,15 +37,19 @@ namespace DefaultNamespace
             item.SetActive(true);
             item.transform.SetParent(ground.transform);
 
-            if (type == ItemType.enemy)
+            if (type == ItemType.Enemy)
             {
                 var data = item.GetComponent<FlyingDamage>().Data;
                 item.transform.position = new Vector3(xpos, ground.transform.position.y + data.ypos);
             }
             else
             {
+                var itemComponent = item.GetComponent<Item>();
+                if (itemComponent == null) return;
                 item.transform.position = new Vector3(xpos, ground.transform.position.y + 3);
-                item.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.01f);
+                if (itemComponent.Data.effect== ItemEffect.Heal) { }
+                else
+                    item.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.01f);
             }
         }
 
