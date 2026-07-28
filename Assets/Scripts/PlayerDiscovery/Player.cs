@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
                 boost.EnablePowerUp(item);
                 break;
             case ItemEffect.Flying:
-               // boost.EnableFlying(item);
+                boost.EnableFlying(item);
                 break;
             case ItemEffect.AddCoin:
                 score.AddCoin(item.value,other);
@@ -68,4 +68,3 @@ public class Player : MonoBehaviour
         _movement.FlyingMode(enable,flyingHeight);
     }
 }
-

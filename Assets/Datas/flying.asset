@@ -16,5 +16,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   itemType: 0
   effect: 16
-  value: 20
+  value: 5
   duration: 15
