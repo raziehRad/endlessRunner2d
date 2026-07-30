@@ -17,6 +17,7 @@ namespace DefaultNamespace
         private readonly List<GameObject> grounds = new();
         public IReadOnlyList<GameObject> Grounds => grounds;
         public ObjectPool GroundPool => groundPool;
+        public ItemSpawner ItemSpawner => _itemSpawner;
 
         public void Initialize()
         {

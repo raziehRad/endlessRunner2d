@@ -13,24 +13,36 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < poolSize; i++)
         {
-            var rand = Random.Range(0, prefabs.Length);
-            GameObject obj = Instantiate(prefabs[rand]);
-            obj.SetActive(false);
-            pool.Add(obj);
+            Create();
         }
     }
 
+    private GameObject Create()
+    {
+        var rand = Random.Range(0, prefabs.Length);
+        GameObject obj = Instantiate(prefabs[rand]);
+        obj.SetActive(false);
+        pool.Add(obj);
+        return obj;
+    }
     public GameObject GetFromPool()
     {
-        foreach (var obj in pool)
+        foreach (var obj1 in pool)
         {
-            if (!obj.activeInHierarchy)
+            if (!obj1.activeInHierarchy)
             {
-                obj.SetActive(true);
-                return obj;
+                obj1.SetActive(true);
+                return obj1;
             }
         }
         
-        return null;
+        return Create();
+    }
+    public void RemoveFromPool(GameObject obj)
+    {
+        if (obj == null) return;
+
+        pool.Remove(obj);
+        Destroy(obj);
     }
 }

@@ -73,5 +73,13 @@ namespace DefaultNamespace
                 _playerStateMachine.ChangeState(PlayerState.Ideal);
             }
         }
+
+        public void JumpMode(ItemData itemData)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+            rb.AddForce(Vector2.up*itemData.value,ForceMode2D.Impulse);
+            AudioManager.instance.PlayJump();
+            _animator.SetBool("_jump",true);
+        }
     }
 }

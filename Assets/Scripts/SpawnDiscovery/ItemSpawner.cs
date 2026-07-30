@@ -46,9 +46,10 @@ namespace DefaultNamespace
             {
                 var itemComponent = item.GetComponent<Item>();
                 if (itemComponent == null) return;
+                if (itemComponent.Data.effect==ItemEffect.Jump) return;
+                
                 item.transform.position = new Vector3(xpos, ground.transform.position.y + 3);
-                if (itemComponent.Data.effect== ItemEffect.Heal) { }
-                else
+                if (itemComponent.Data.effect != ItemEffect.Heal)
                     item.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.01f);
             }
         }
@@ -62,6 +63,11 @@ namespace DefaultNamespace
                 xpos = ground.transform.position.x + (_spawner.GetWidth(ground) / 2f) - 2; //left
             else if (chancePos > 0.7) xpos = ground.transform.position.x - (_spawner.GetWidth(ground) / 2f) + 2; //right
             return xpos;
+        }
+
+        public void ReleaseItem(GameObject obj)
+        {
+            itemPool.RemoveFromPool(obj);
         }
     }
 }

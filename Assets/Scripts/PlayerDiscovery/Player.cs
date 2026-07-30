@@ -49,8 +49,15 @@ public class Player : MonoBehaviour
             case ItemEffect.AddCoin:
                 score.AddCoin(item.value,other);
                 break;
-            
+            case ItemEffect.Jump:
+                JumpMode(item);
+                break;
         }
+    }
+
+    private void JumpMode(ItemData itemData)
+    {
+        _movement.JumpMode(itemData);
     }
 
     public void SetCharacter()

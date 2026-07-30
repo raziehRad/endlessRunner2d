@@ -28,6 +28,7 @@ namespace DefaultNamespace
             if (isShieldOn) return;
             
             currentHealth -= damage;
+            GameManager.Instance.GroundManager.PlayerSpeed.HitEnemy();
             HUDManager.Instance.SetPlayerHealth(currentHealth);
             HUDManager.Instance.SetItemCount(0);
             if (currentHealth<=0)

@@ -53,5 +53,6 @@
         Slow,
         Stun,
         
-        Flying
+        Flying,
+        Jump
     }

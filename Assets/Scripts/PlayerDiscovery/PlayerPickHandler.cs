@@ -37,17 +37,19 @@ namespace DefaultNamespace
                         .SetEase(Ease.InOutSine).OnComplete(() =>
                         {
                             other.gameObject.SetActive(false);
-                            Destroy(fx);
+                          
                             other.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.2f);
                         });
                 }));
-            score++;
+         //   score++;
+            GameManager.Instance.GroundManager.PlayerSpeed.AddCoin();
+            Destroy(fx,0.7f);
             if (score == 10)
             {
-                _playerStateMachine.ChangeState(PlayerState.Run);
-                var speed= ground.Mover.MoveSpeed + 2;
-                ground.SetMoveSpeed(speed) ;
-                score = 0;
+              //  _playerStateMachine.ChangeState(PlayerState.Run);
+            //    var speed= ground.Mover.MoveSpeed + 2 ;
+               // ground.SetMoveSpeed(speed) ;
+               // score = 0;
             }
         }
     }

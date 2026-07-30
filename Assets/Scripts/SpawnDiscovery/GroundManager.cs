@@ -9,8 +9,11 @@ public class GroundManager : MonoBehaviour
     [SerializeField] private GroundMover _mover;
     [SerializeField] private GroundRecycler _recycler;
     [SerializeField] private BackgroundManager _background;
+    [SerializeField] private PlayerSpeed _playerSpeed;
 
     public GroundMover Mover => _mover;
+    public GroundSpawner Spawner => _spawner;
+    public PlayerSpeed PlayerSpeed => _playerSpeed;
     void Start()
     {
         _spawner.Initialize();

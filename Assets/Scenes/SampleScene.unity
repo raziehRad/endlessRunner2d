@@ -328,6 +328,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 8846189604148911260, guid: 82576fa517e60a242953af571e8434d9, type: 3}
   - {fileID: 9135301131807934663, guid: f1bcc40e506cf344eb9ffa58021f1ab8, type: 3}
+  - {fileID: 8846189604148911260, guid: 600693e9c865a6b479a4129f08624b1d, type: 3}
   poolSize: 5
 --- !u!4 &59006058
 Transform:
@@ -2206,6 +2207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 363360547}
   - component: {fileID: 363360546}
+  - component: {fileID: 363360548}
   m_Layer: 0
   m_Name: ItemPool
   m_TagString: Untagged
@@ -2234,6 +2236,7 @@ MonoBehaviour:
   - {fileID: 5199166833623193480, guid: 317e18c9811d1b848a8e00b27a7dba5c, type: 3}
   - {fileID: 5420566825862812834, guid: 90e106ea4089bba46bd570770471b1c5, type: 3}
   - {fileID: 5199166833623193480, guid: 3d29ac83bda7f434bbbf533d42849652, type: 3}
+  - {fileID: 8312104804074048843, guid: a43b71557a8f35346811c331a9abcba6, type: 3}
   poolSize: 5
 --- !u!4 &363360547
 Transform:
@@ -2250,6 +2253,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 411212776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &363360548
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363360545}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2180869db004ce9419f9e871a9ba5b5d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &363954114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2547,6 +2572,7 @@ MonoBehaviour:
   _hudManager: {fileID: 1741511716}
   audioManager: {fileID: 385980566}
   _player: {fileID: 1506153990}
+  _groundManager: {fileID: 411212784}
 --- !u!1 &401971315
 GameObject:
   m_ObjectHideFlags: 0
@@ -2674,7 +2700,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -5
   m_Sprite: {fileID: -5345328668825549247, guid: 69d7ab94b704ccc45ad0a43c12cf221a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2717,6 +2743,7 @@ GameObject:
   - component: {fileID: 411212782}
   - component: {fileID: 411212783}
   - component: {fileID: 411212784}
+  - component: {fileID: 411212785}
   m_Layer: 0
   m_Name: GroundSpawner
   m_TagString: Untagged
@@ -2757,7 +2784,6 @@ MonoBehaviour:
   prefabs:
   - {fileID: 8206901012642770684, guid: 14a1dae714e9d0845a69d413f3ba8643, type: 3}
   - {fileID: 4006115423712742722, guid: e3a727cff227fd54ba29760545328ad3, type: 3}
-  - {fileID: 7622495843178329913, guid: 0c0f9717ae6c7e946a659dbc9740e7d0, type: 3}
   poolSize: 5
 --- !u!114 &411212779
 MonoBehaviour:
@@ -2851,6 +2877,24 @@ MonoBehaviour:
   _mover: {fileID: 411212781}
   _recycler: {fileID: 411212780}
   _background: {fileID: 411212779}
+  _playerSpeed: {fileID: 411212785}
+--- !u!114 &411212785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411212774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77545b4ec2a7407381491cda147ef530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSpeed: 5
+  speedPerLevel: 0.5
+  coinsPerLevel: 10
+  minSpeed: 5
+  maxSpeed: 15
 --- !u!1 &434015767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3214,7 +3258,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -5
   m_Sprite: {fileID: 686532288376950558, guid: 23634e84a614ba04385e4aef4079f614, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -10054,7 +10098,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -5
   m_Sprite: {fileID: -3843433751633978445, guid: f3323d0e4877e9b43afcc61c3b1fa51a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

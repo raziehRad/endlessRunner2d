@@ -28,6 +28,7 @@
         [SerializeField] private GameObject _play;
         private int _playerHealth=100;
         private int _playerScore;
+        private int _playerSpeed;
         private CharacterData characterData;
         
 
@@ -132,6 +133,14 @@
             }
         }
 
+        public void SpeedTxt(int speed)
+        {
+            if (speed==_playerSpeed) return;
+            
+            _bonesTXT.text = speed+"X";
+            _bonesTXT.gameObject.SetActive(true);
+            BonesScale();
+        }
         private void CheckPrize(int score)
         {
             if (score%100==0)
