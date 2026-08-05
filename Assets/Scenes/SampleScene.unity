@@ -1585,8 +1585,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1741511716}
-        m_TargetAssemblyTypeName: HUDManager, Assembly-CSharp
+      - m_Target: {fileID: 1741511722}
+        m_TargetAssemblyTypeName: HUDGameMenu, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -2422,7 +2422,6 @@ GameObject:
   - component: {fileID: 385980567}
   - component: {fileID: 385980566}
   - component: {fileID: 385980568}
-  - component: {fileID: 385980569}
   m_Layer: 0
   m_Name: audioManager
   m_TagString: Untagged
@@ -2444,6 +2443,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpClip: {fileID: 8300000, guid: b5e086725ebc45646a63bef0422d534f, type: 3}
   _coinClip: {fileID: 8300000, guid: 8ed944b5226bc7642a7cfd2ebb5f35c7, type: 3}
+  _pickupClip: {fileID: 8300000, guid: e5ec614435fdf704eb9e7632f0bd65cf, type: 3}
+  _enemyDieClip: {fileID: 8300000, guid: dbe391ab07359d143a91b2e51fb64b34, type: 3}
   _gameoveClip: {fileID: 8300000, guid: dbe391ab07359d143a91b2e51fb64b34, type: 3}
 --- !u!4 &385980567
 Transform:
@@ -2557,22 +2558,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &385980569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 385980565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d9b622eac745efa7ad804ff85cb320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hudManager: {fileID: 1741511716}
-  audioManager: {fileID: 385980566}
-  _player: {fileID: 1506153990}
-  _groundManager: {fileID: 411212784}
 --- !u!1 &401971315
 GameObject:
   m_ObjectHideFlags: 0
@@ -4467,6 +4452,67 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!1 &692147887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 692147889}
+  - component: {fileID: 692147888}
+  - component: {fileID: 692147890}
+  m_Layer: 0
+  m_Name: Gamemanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &692147888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692147887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d9b622eac745efa7ad804ff85cb320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hudManager: {fileID: 1741511716}
+  audioManager: {fileID: 385980566}
+  _player: {fileID: 1506153990}
+  _groundManager: {fileID: 411212784}
+--- !u!4 &692147889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692147887}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.499197, y: 2.1653092, z: -0.12791146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &692147890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692147887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3996dceacee746a5b453d5bd40dbad7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &707025659
 GameObject:
   m_ObjectHideFlags: 0
@@ -5345,8 +5391,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1741511716}
-        m_TargetAssemblyTypeName: HUDManager, Assembly-CSharp
+      - m_Target: {fileID: 1741511722}
+        m_TargetAssemblyTypeName: HUDGameMenu, Assembly-CSharp
         m_MethodName: Continue
         m_Mode: 1
         m_Arguments:
@@ -5622,8 +5668,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1741511716}
-        m_TargetAssemblyTypeName: HUDManager, Assembly-CSharp
+      - m_Target: {fileID: 1741511722}
+        m_TargetAssemblyTypeName: HUDGameMenu, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
@@ -5755,8 +5801,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1741511716}
-        m_TargetAssemblyTypeName: HUDManager, Assembly-CSharp
+      - m_Target: {fileID: 1741511722}
+        m_TargetAssemblyTypeName: HUDGameMenu, Assembly-CSharp
         m_MethodName: RePlay
         m_Mode: 1
         m_Arguments:
@@ -5888,7 +5934,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1506153998}
         m_TargetAssemblyTypeName: DefaultNamespace.PlayerMovement, Assembly-CSharp
         m_MethodName: Jump
         m_Mode: 1
@@ -8182,6 +8228,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd1eb509fd696d049b20322506797219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1506153998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8344180583369669946, guid: 8c2aa41c6d6dc8b4b89212e20fd1c852, type: 3}
+  m_PrefabInstance: {fileID: 3864680654551024622}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506153977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913d8aa1e9ea4d6ca01d3ca29382bbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1546169015
 GameObject:
   m_ObjectHideFlags: 0
@@ -9183,6 +9240,11 @@ GameObject:
   - component: {fileID: 1741511717}
   - component: {fileID: 1741511716}
   - component: {fileID: 1741511718}
+  - component: {fileID: 1741511723}
+  - component: {fileID: 1741511722}
+  - component: {fileID: 1741511721}
+  - component: {fileID: 1741511720}
+  - component: {fileID: 1741511719}
   m_Layer: 0
   m_Name: HUDManager
   m_TagString: Untagged
@@ -9202,21 +9264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96078241de6e4d70bf039f0ef7005254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerHealthtxt: {fileID: 235308494}
-  _playerScoretxt: {fileID: 1479975280}
-  _playerItemtxt: {fileID: 67807781}
-  _playerItemPic: {fileID: 1358099281}
-  _boostedItem: {fileID: 1546169017}
-  _bonesTXT: {fileID: 716952023}
-  _highScoreTxt: {fileID: 144838916}
-  shieldTimerImage: {fileID: 958642161}
-  powerUpTimerImage: {fileID: 555670318}
-  flyingTimerImage: {fileID: 245270789}
-  _startPanel: {fileID: 124620567}
-  characterPanel: {fileID: 717133251}
-  _continue: {fileID: 821878778}
-  _rePlay: {fileID: 899056346}
-  _play: {fileID: 196995565}
+  _hUDPlayer: {fileID: 1741511721}
+  _HUDScore: {fileID: 1741511720}
+  _HUDBoost: {fileID: 1741511723}
 --- !u!4 &1741511717
 Transform:
   m_ObjectHideFlags: 0
@@ -9244,6 +9294,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53252b9633c154c43939ad91b45171ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1741511719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741511715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93467bd00944ee29304b634ca38697f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bonesTXT: {fileID: 716952023}
+--- !u!114 &1741511720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741511715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc461cc595bf43e29b3e5d8cdd37fab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerScoretxt: {fileID: 1479975280}
+  _bonesTXT: {fileID: 716952023}
+  _HUDAnimate: {fileID: 1741511719}
+  _highScoreTxt: {fileID: 144838916}
+--- !u!114 &1741511721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741511715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea227f01bb754979becede2e9dec3bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerHealthtxt: {fileID: 235308494}
+  _HUDAnimate: {fileID: 1741511719}
+  _playerItemPic: {fileID: 1358099281}
+  _playerItemtxt: {fileID: 67807781}
+  _bonesTXT: {fileID: 716952023}
+--- !u!114 &1741511722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741511715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7301b8c99744e4b5f1b8548e452ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startPanel: {fileID: 124620567}
+  characterPanel: {fileID: 717133251}
+  _playerScoretxt: {fileID: 1479975280}
+  _continue: {fileID: 821878778}
+  _rePlay: {fileID: 899056346}
+  _play: {fileID: 196995565}
+--- !u!114 &1741511723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741511715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b007efb37d748f2975d4391f81e735a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldTimerImage: {fileID: 958642161}
+  powerUpTimerImage: {fileID: 555670318}
+  flyingTimerImage: {fileID: 245270789}
+  _boostedItem: {fileID: 1546169017}
+  _HUDAnimate: {fileID: 1741511719}
 --- !u!1 &1752785437
 GameObject:
   m_ObjectHideFlags: 0
@@ -10215,9 +10346,10 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 3864680654551024622}
   - {fileID: 411212776}
-  - {fileID: 1741511717}
   - {fileID: 669499731}
   - {fileID: 361905262}
   - {fileID: 385980567}
   - {fileID: 1735432125}
   - {fileID: 1993066415}
+  - {fileID: 692147889}
+  - {fileID: 1741511717}

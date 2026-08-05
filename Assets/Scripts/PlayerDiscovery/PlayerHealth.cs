@@ -29,10 +29,13 @@ namespace DefaultNamespace
             
             currentHealth -= damage;
             GameManager.Instance.GroundManager.PlayerSpeed.HitEnemy();
-            HUDManager.Instance.SetPlayerHealth(currentHealth);
-            HUDManager.Instance.SetItemCount(0);
+            //HUDManager.Instance.SetPlayerHealth(currentHealth);
+            GameEvents.OnHealthChanged?.Invoke(currentHealth);
+            GameEvents.OnCoinChanged?.Invoke(currentHealth);
+            //HUDManager.Instance.SetItemCount(0);
             if (currentHealth<=0)
             {
+                GameEvents.OnPlayerDied?.Invoke();
                 _stateMachine.ChangeState(PlayerState.Die);
             }
         }
@@ -43,7 +46,8 @@ namespace DefaultNamespace
             currentHealth += itemValue;
             if (currentHealth>maxHealth)
                 currentHealth = maxHealth;
-            HUDManager.Instance.SetPlayerHealth(currentHealth);
+           // HUDManager.Instance.SetPlayerHealth(currentHealth);
+            GameEvents.OnHealthChanged?.Invoke(currentHealth);
         }
     }
 }

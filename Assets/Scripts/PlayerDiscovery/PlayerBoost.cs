@@ -24,7 +24,8 @@ namespace DefaultNamespace
         public void EnableBoost()
         {
             isBoosted = true;
-            HUDManager.Instance.SwitchBoosted(true);
+            
+           // HUDManager.Instance.SwitchBoosted(true);
             StartCoroutine(BoostTimer());
             
             var speed= ground.Mover.MoveSpeed + 2;
@@ -44,7 +45,8 @@ namespace DefaultNamespace
             isBoosted = false;
             StopCoroutine(BoostTimer());
             ground.SetMoveSpeed(5) ;
-            HUDManager.Instance.SwitchBoosted(false);
+            GameEvents.OnSwitchBoosted?.Invoke(false);
+          //  HUDManager.Instance.SwitchBoosted(false);
         }
 
         public void EnableShield(float itemDuration)
@@ -53,7 +55,8 @@ namespace DefaultNamespace
             
             isShieldOn = true;
             shieldObject.SetActive(true);
-            HUDManager.Instance.ShieldBoosted(itemDuration);
+            GameEvents.OnShieldBoosted?.Invoke(itemDuration);
+            //HUDManager.Instance.ShieldBoosted(itemDuration);
             StartCoroutine(ShieldCoroutine(itemDuration));
         }
 
@@ -70,7 +73,8 @@ namespace DefaultNamespace
         {
             if (isPowerUpOn) return;
             isPowerUpOn = true;
-            HUDManager.Instance.PowerUpBoosted(itemData.duration);
+            GameEvents.OnPowerUp?.Invoke(itemData.duration);
+           // HUDManager.Instance.PowerUpBoosted(itemData.duration);
             StartCoroutine(PowerUpCoroutine(itemData));
         }
 
@@ -86,7 +90,8 @@ namespace DefaultNamespace
         {
             if (isFlyingOn) return;
             isFlyingOn = true;
-            HUDManager.Instance.FlyingBoosted(item.duration);
+            GameEvents.OnFlyingBoosted?.Invoke(item.duration);
+            //HUDManager.Instance.FlyingBoosted(item.duration);
             StartCoroutine(FlyingCoroutine(item));
         }
 

@@ -18,3 +18,5 @@ MonoBehaviour:
   effect: 0
   value: 60
   duration: 0
+  yPos: 3
+  scale: {x: 0.3, y: 0.4, z: 0.3}

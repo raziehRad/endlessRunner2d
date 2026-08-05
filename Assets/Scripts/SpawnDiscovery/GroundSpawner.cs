@@ -47,6 +47,7 @@ namespace DefaultNamespace
         {
             for (int i = 0; i < ground.transform.childCount; i++)
             {
+                if ( ground.transform.GetChild(i).CompareTag("GroundItem")) return;
                 ground.transform.GetChild(i).gameObject.SetActive(false);
                 ground.transform.GetChild(i).SetParent(null);
             }

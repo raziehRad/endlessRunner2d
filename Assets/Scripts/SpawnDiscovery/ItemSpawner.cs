@@ -45,12 +45,16 @@ namespace DefaultNamespace
             else
             {
                 var itemComponent = item.GetComponent<Item>();
-                if (itemComponent == null) return;
-                if (itemComponent.Data.effect==ItemEffect.Jump) return;
-                
-                item.transform.position = new Vector3(xpos, ground.transform.position.y + 3);
-                if (itemComponent.Data.effect != ItemEffect.Heal)
-                    item.transform.DOScale(new Vector3(0.3f, 0.6f, 0.3f), 0.01f);
+                if (itemComponent == null)
+                {
+                    for (int i = 0; i < item.transform.childCount; i++)
+                    {
+                        item.transform.GetChild(i).gameObject.SetActive(true);
+                    }
+                    return;
+                }
+                item.transform.position = new Vector3(xpos, ground.transform.position.y +itemComponent.Data.yPos);
+                item.transform.DOScale(itemComponent.Data.scale, 0.01f);
             }
         }
 

@@ -18,9 +18,11 @@ public class PlayerScore : MonoBehaviour
     public void AddCoin(int value, Collider2D other)
     {
         coins += value;
-        AudioManager.instance.PlayCoin();
+        AudioManager.instance.PlayCoin(coins);
         GetComponent<PlayerPickHandler>().SpawnCoinEffect(other,score);
-        HUDManager.Instance.SetItemCount(score);
+        GameEvents.OnCoinChanged?.Invoke(coins);
+        //HUDManager.Instance.SetItemCount(score);
+        GameEvents.OnScoreChanged?.Invoke(score);
         // Update Coin UI
     }
 

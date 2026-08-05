@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4633832617100736580}
   m_Layer: 0
   m_Name: mushroom_red_0
-  m_TagString: Untagged
+  m_TagString: GroundItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 7097138298766385703}
   m_Layer: 0
   m_Name: mushroom_red_0 (1)
-  m_TagString: Untagged
+  m_TagString: GroundItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 9137438189231629803}
   m_Layer: 0
   m_Name: grass2_0
-  m_TagString: Untagged
+  m_TagString: GroundItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 205911314334380999}
   m_Layer: 0
   m_Name: mushroom_red_0 (2)
-  m_TagString: Untagged
+  m_TagString: GroundItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

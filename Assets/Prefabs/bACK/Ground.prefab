@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6388722086366502957}
   m_Layer: 0
   m_Name: cactus_0
-  m_TagString: Untagged
+  m_TagString: GroundItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 223390910585223081}
   m_Layer: 0
   m_Name: grass2_0
-  m_TagString: Untagged
+  m_TagString: GroundItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 6377860607131525354}
   m_Layer: 0
   m_Name: grass1_0
-  m_TagString: Untagged
+  m_TagString: GroundItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

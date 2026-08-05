@@ -14,6 +14,8 @@
         public ItemEffect effect;
         public int value;
         public float duration;
+        public float yPos;
+        public Vector3 scale;
     }
 
     public enum ItemType

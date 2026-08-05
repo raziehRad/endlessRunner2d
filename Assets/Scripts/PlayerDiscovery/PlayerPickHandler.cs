@@ -22,6 +22,10 @@ namespace DefaultNamespace
             if (other.TryGetComponent(out Item item))
             {
                 item.Collect(GetComponent<Player>(),other);
+                if (item.Data.effect != ItemEffect.AddCoin && item.Data.effect != ItemEffect.Jump )
+                {
+                    AudioManager.instance.PlayPickUp();
+                }
             }
         }
         
@@ -29,7 +33,8 @@ namespace DefaultNamespace
         {
             var fx = Instantiate(_coinFX, other.transform.position, quaternion.identity);
             fx.GetComponent<ParticleSystem>().Play();
-            HUDManager.Instance.SetPlayerScore(other.GetComponent<Item>().Data.value);
+            GameEvents.OnScoreChanged?.Invoke(other.GetComponent<Item>().Data.value);
+           // HUDManager.Instance.SetPlayerScore(other.GetComponent<Item>().Data.value);
             other.transform.DOScale(new Vector3(0.5f, 0.8f, 0.5f), 0.3f)
                 .SetEase(Ease.OutBack).OnComplete((() =>
                 {

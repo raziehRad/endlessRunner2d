@@ -124,8 +124,8 @@ public class AdsManager : MonoBehaviour , IUnityAdsInitializationListener, IUnit
     private void GiveRewardToPlayer()
     {
         // پاداش به بازیکن بده (مثلاً سکه، جان، انرژی و غیره)
-       
-        HUDManager.Instance.AddScore(_reward);
+        GameEvents.OnScoreChanged?.Invoke(_reward);
+        //HUDManager.Instance.AddScore(_reward);
         Debug.Log("Player rewarded!");
     }
 }

@@ -15,6 +15,8 @@ namespace DefaultNamespace
         private PlayerStateMachine _playerStateMachine;
         
         private float normalGravity;
+        private bool isFlying;
+
         private void Awake()
         {
            
@@ -35,7 +37,8 @@ namespace DefaultNamespace
         public void Jump()
         {
             if (!isGround) return;
-            Debug.Log( rb.gravityScale);
+            if (isFlying) return;
+            
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
             AudioManager.instance.PlayJump();
@@ -44,6 +47,7 @@ namespace DefaultNamespace
 
         public void FlyingMode( bool enable,int flyingHeight )
         {
+            isFlying = enable;
             _animator.SetBool("flying",enable);
             wings.SetActive(enable);
             if (enable)
@@ -76,6 +80,7 @@ namespace DefaultNamespace
 
         public void JumpMode(ItemData itemData)
         {
+            if (isFlying) return;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up*itemData.value,ForceMode2D.Impulse);
             AudioManager.instance.PlayJump();

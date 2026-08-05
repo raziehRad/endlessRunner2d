@@ -1,8 +1,15 @@
 using System;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 public class FlyingDamage : Enemy
 {
+    private float currentHealth;
+    private void OnEnable()
+    {
+        currentHealth = Data.health;
+    }
+
     public override void Attack(Player player)
     {
         base.Attack(player);
@@ -10,13 +17,16 @@ public class FlyingDamage : Enemy
 
     public override void TakeDamage(int damage)
     {
-        Data.health -= damage;
-        if (Data.health<=0)
+        currentHealth -= damage;
+        Debug.Log("take damage"+currentHealth);
+        if (currentHealth<=0)
         {
-          
-            HUDManager.Instance.SetPlayerScore(Data.score);
+            //AudioManager.instance.PlayEnemyDie()
+            GameEvents.OnScoreChanged?.Invoke(Data.score);
+            //HUDManager.Instance.SetPlayerScore(Data.score);
+            currentHealth = Data.health;
             gameObject.SetActive(false);
-            Data.health = 100;
+           
         }
     }
 

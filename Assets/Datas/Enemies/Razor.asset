@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Razor
   m_EditorClassIdentifier: 
   enemyName: 
-  health: 100000
+  health: 99430
   speed: 10
   damage: 20
   score: 0

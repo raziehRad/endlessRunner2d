@@ -9,6 +9,6 @@
         public float speed=10;
         public float damage=20;
         public int score=20;
-        public int ypos=1;
+        public float ypos=1;
         public ItemType type =ItemType.Enemy;
     }

@@ -36,8 +36,9 @@
         {
             float speed = baseSpeed + speedLevel * speedPerLevel;
             speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
-
+            
             GameManager.Instance.GroundManager.SetMoveSpeed(speed);
-            GameManager.Instance.HUDManager.SpeedTxt((int)speed);
+            GameEvents.OnSpeedChanged?.Invoke((int)speed);
+            //GameManager.Instance.HUDManager.SpeedTxt((int)speed);
         }
     }

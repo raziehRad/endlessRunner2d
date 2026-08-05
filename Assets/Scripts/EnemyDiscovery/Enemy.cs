@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
+    
     [SerializeField] private EnemyData data;
     public EnemyData Data => data;
 
