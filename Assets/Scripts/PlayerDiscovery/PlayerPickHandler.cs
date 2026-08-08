@@ -31,6 +31,7 @@ namespace DefaultNamespace
             var fx = Instantiate(_coinFX, other.transform.position, quaternion.identity);
             fx.GetComponent<ParticleSystem>().Play();
             GameEvents.OnScoreChanged?.Invoke(other.GetComponent<Item>().Data.value);
+            AudioManager.instance.Play(SoundType.Coin);
             Sequence sequence = DOTween.Sequence();
 
             sequence.Append(other.transform.DOScale(new Vector3(0.5f, 0.8f, 0.5f), 0.3f))

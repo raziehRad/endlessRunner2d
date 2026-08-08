@@ -9,8 +9,9 @@
         public void Collect(Player player, Collider2D other=null)
         {
             GameEvents.OnItemCollected?.Invoke(data, other);
-            if (data.effect!=ItemEffect.Jump)
+            if (data.effect == ItemEffect.Jump)
+                GetComponent<Animator>().CrossFade("jumpTable", 0.5f);
+            //else
                 GameEvents.OnReleaseItem?.Invoke(gameObject);
-            else GetComponent<Animator>().CrossFade("jumpTable",0.5f);
         }
     }

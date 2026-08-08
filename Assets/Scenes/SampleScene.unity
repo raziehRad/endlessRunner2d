@@ -2443,8 +2443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpClip: {fileID: 8300000, guid: b5e086725ebc45646a63bef0422d534f, type: 3}
   _coinClip: {fileID: 8300000, guid: 8ed944b5226bc7642a7cfd2ebb5f35c7, type: 3}
-  _pickupClip: {fileID: 8300000, guid: e5ec614435fdf704eb9e7632f0bd65cf, type: 3}
-  _enemyDieClip: {fileID: 8300000, guid: dbe391ab07359d143a91b2e51fb64b34, type: 3}
+  _pickupClip: {fileID: 8300000, guid: 2b6f9605f140fa9469fb3487ad4d07d7, type: 3}
   _gameoveClip: {fileID: 8300000, guid: dbe391ab07359d143a91b2e51fb64b34, type: 3}
 --- !u!4 &385980567
 Transform:
@@ -2797,7 +2796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1688665e14949089d081bc76b74ee18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 411212782}
   xSpacing: {x: 1, y: 3}
   yRange: {x: -1, y: 1}
 --- !u!114 &411212781
@@ -2812,7 +2810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5cb549346574f6f8a6972f644bf5f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 411212782}
   speed: 5
 --- !u!114 &411212782
 MonoBehaviour:
@@ -2826,9 +2823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a467c7d925e04f3f8673a48a56477e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundPool: {fileID: 411212778}
-  _itemSpawner: {fileID: 411212783}
-  _background: {fileID: 411212779}
   initialGround: 5
   xSpacing: {x: 1, y: 3}
   yRange: {x: -1, y: 1}
@@ -2858,11 +2852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c2069139a963b41869bedfcf41df67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 411212782}
-  _mover: {fileID: 411212781}
-  _recycler: {fileID: 411212780}
-  _background: {fileID: 411212779}
-  _playerSpeed: {fileID: 411212785}
 --- !u!114 &411212785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8239,6 +8228,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913d8aa1e9ea4d6ca01d3ca29382bbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1506154009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506153977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c9a0ceb40c419b9bf18671ac683df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1546169015
 GameObject:
   m_ObjectHideFlags: 0
@@ -9264,9 +9265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96078241de6e4d70bf039f0ef7005254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hUDPlayer: {fileID: 1741511721}
-  _HUDScore: {fileID: 1741511720}
-  _HUDBoost: {fileID: 1741511723}
 --- !u!4 &1741511717
 Transform:
   m_ObjectHideFlags: 0
@@ -9321,7 +9319,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerScoretxt: {fileID: 1479975280}
   _bonesTXT: {fileID: 716952023}
-  _HUDAnimate: {fileID: 1741511719}
   _highScoreTxt: {fileID: 144838916}
 --- !u!114 &1741511721
 MonoBehaviour:
@@ -9336,7 +9333,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerHealthtxt: {fileID: 235308494}
-  _HUDAnimate: {fileID: 1741511719}
   _playerItemPic: {fileID: 1358099281}
   _playerItemtxt: {fileID: 67807781}
   _bonesTXT: {fileID: 716952023}
@@ -9374,7 +9370,6 @@ MonoBehaviour:
   powerUpTimerImage: {fileID: 555670318}
   flyingTimerImage: {fileID: 245270789}
   _boostedItem: {fileID: 1546169017}
-  _HUDAnimate: {fileID: 1741511719}
 --- !u!1 &1752785437
 GameObject:
   m_ObjectHideFlags: 0
@@ -10318,6 +10313,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2323711903038200060, guid: 8c2aa41c6d6dc8b4b89212e20fd1c852, type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 841626806}
     - target: {fileID: 7295272716603737742, guid: 8c2aa41c6d6dc8b4b89212e20fd1c852, type: 3}
       propertyPath: m_Name
       value: Player
@@ -10333,7 +10332,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7295272716603737742, guid: 8c2aa41c6d6dc8b4b89212e20fd1c852, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1506154009}
   m_SourcePrefab: {fileID: 100100000, guid: 8c2aa41c6d6dc8b4b89212e20fd1c852, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

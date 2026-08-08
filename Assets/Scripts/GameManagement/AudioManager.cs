@@ -24,15 +24,6 @@
             instance = this;
             _audioSource = GetComponent<AudioSource>();
         }
-        private void OnEnable()
-        {
-            GameEvents.OnCoinChanged += PlayCoin;
-        }
-        private void OnDisable()
-        {
-            GameEvents.OnCoinChanged -= PlayCoin;
-        }
-
         private void PlaySound(AudioClip clip)
         {
             if (clip != null) _audioSource.PlayOneShot(clip);
@@ -57,11 +48,6 @@
                     PlaySound(_gameoveClip);
                     break;
             }
-        }
-
-        private void PlayCoin(int _)
-        {
-          PlaySound(_coinClip);
         }
     }
     public enum SoundType

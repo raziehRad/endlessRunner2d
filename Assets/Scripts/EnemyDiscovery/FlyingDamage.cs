@@ -18,7 +18,6 @@ public class FlyingDamage : Enemy
     public override void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log("take damage"+currentHealth);
         if (currentHealth<=0)
         {
             GameEvents.OnScoreChanged?.Invoke(Data.score);
