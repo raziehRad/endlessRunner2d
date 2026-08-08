@@ -1,5 +1,4 @@
-using System;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
+
 using UnityEngine;
 
 public class FlyingDamage : Enemy

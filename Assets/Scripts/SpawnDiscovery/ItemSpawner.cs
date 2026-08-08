@@ -80,7 +80,7 @@ namespace DefaultNamespace
             return xpos;
         }
 
-        public void ReleaseItem(GameObject obj)
+        private void ReleaseItem(GameObject obj)
         {
             itemPool.RemoveFromPool(obj);
         }

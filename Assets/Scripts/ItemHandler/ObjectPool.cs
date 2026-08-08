@@ -43,6 +43,6 @@ public class ObjectPool : MonoBehaviour
         if (obj == null) return;
 
         pool.Remove(obj);
-        Destroy(obj);
+        Destroy(obj,0.5f);
     }
 }
