@@ -1,4 +1,5 @@
 ﻿
+    using System;
     using DG.Tweening;
     using TMPro;
     using UnityEngine;
@@ -6,10 +7,15 @@
     public class HUDPlayer : MonoBehaviour
     {
         [SerializeField] protected TextMeshProUGUI _playerHealthtxt;
-        [SerializeField]protected HUDAnimation _HUDAnimate;
         [SerializeField] protected GameObject _playerItemPic;
         [SerializeField] protected TextMeshProUGUI _playerItemtxt;
         [SerializeField] protected TextMeshProUGUI _bonesTXT;
+        private HUDAnimation _HUDAnimate;
+        private void Awake()
+        {
+            _HUDAnimate = GetComponent<HUDAnimation>();
+        }
+
         public void SetPlayerHealth(int damage)
         {
           //  _playerHealth = damage;
@@ -26,17 +32,12 @@
                 _HUDAnimate.ScaleBounce(_playerItemtxt.transform);
             }
         }
-        public void SpeedTxt(int speed)
+        public void SpeedTxt(float speed)
         {
            // if (speed==_playerSpeed) return;
-            
-           
-            _bonesTXT.text = speed+"X";
+           _bonesTXT.text =(int) speed+"X";
             _bonesTXT.gameObject.SetActive(true);
             _HUDAnimate.BonesScale(_bonesTXT.transform);
             _HUDAnimate. BonesScale();
         }
-      
-        
-
     }

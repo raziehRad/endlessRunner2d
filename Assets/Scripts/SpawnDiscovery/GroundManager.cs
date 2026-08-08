@@ -1,19 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using DefaultNamespace;
 
 public class GroundManager : MonoBehaviour
 {
-    [SerializeField] private GroundSpawner _spawner;
-    [SerializeField] private GroundMover _mover;
-    [SerializeField] private GroundRecycler _recycler;
-    [SerializeField] private BackgroundManager _background;
-    [SerializeField] private PlayerSpeed _playerSpeed;
+     private GroundSpawner _spawner;
+     private GroundMover _mover;
+     private GroundRecycler _recycler;
+     private BackgroundManager _background;
+     private PlayerSpeed _playerSpeed;
+    
 
-    public GroundMover Mover => _mover;
-    public GroundSpawner Spawner => _spawner;
-    public PlayerSpeed PlayerSpeed => _playerSpeed;
+    private void Awake()
+    {
+        _spawner = GetComponent<GroundSpawner>();
+        _mover = GetComponent<GroundMover>();
+        _recycler = GetComponent<GroundRecycler>();
+        _background = GetComponent<BackgroundManager>();
+        _playerSpeed = GetComponent<PlayerSpeed>();
+    }
+
     void Start()
     {
         _spawner.Initialize();
@@ -25,10 +33,6 @@ public class GroundManager : MonoBehaviour
         _background.Tick();
         _recycler.Tick();
     }
-
-    public void SetMoveSpeed(float speed)
-    {
-        _mover.SetSpeed(speed);
-    }
+    
 }
 

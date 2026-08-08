@@ -4,7 +4,6 @@
 
     public class HUDGameMenu : MonoBehaviour
     {
-       
         [SerializeField] protected GameObject _startPanel;
         [SerializeField] protected GameObject characterPanel;
         [ SerializeField]protected TextMeshProUGUI _playerScoretxt;
@@ -21,7 +20,7 @@
             var highScore =  SaveManager.LoadHighScore();
             GameEvents.OnScoreChanged?.Invoke(highScore);
             _continue.SetActive(highScore != 0);
-            GameManager.Instance.Player.SetCharacter();
+            GameEvents.OnSetCharacter?.Invoke();
         }
         
         private void Update()

@@ -9,15 +9,19 @@
         [SerializeField] private AudioClip _jumpClip;
         [SerializeField] private AudioClip _coinClip;
         [SerializeField] private AudioClip _pickupClip;
-        [SerializeField] private AudioClip _enemyDieClip;
         [SerializeField] private AudioClip _gameoveClip;
 
         private AudioSource _audioSource;
 
         private void Awake()
         {
-            instance = this;
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
+            instance = this;
             _audioSource = GetComponent<AudioSource>();
         }
         private void OnEnable()
@@ -28,36 +32,42 @@
         {
             GameEvents.OnCoinChanged -= PlayCoin;
         }
-        public void PlaySound(AudioClip clip)
+
+        private void PlaySound(AudioClip clip)
         {
-            if (clip!=null)
+            if (clip != null) _audioSource.PlayOneShot(clip);
+        }
+        public void Play(SoundType sound)
+        {
+            switch (sound)
             {
-                if (clip != null) _audioSource.PlayOneShot(clip);
+                case SoundType.Jump:
+                    PlaySound(_jumpClip);
+                    break;
+
+                case SoundType.Coin:
+                    PlaySound(_coinClip);
+                    break;
+
+                case SoundType.Pickup:
+                    PlaySound(_pickupClip);
+                    break;
+
+                case SoundType.GameOver:
+                    PlaySound(_gameoveClip);
+                    break;
             }
         }
 
-        public void PlayJump()
+        private void PlayCoin(int _)
         {
-            if (_jumpClip != null) PlaySound(_jumpClip);
+          PlaySound(_coinClip);
         }
-
-        public void PlayCoin(int value)
-        {
-            if (_coinClip != null) PlaySound(_coinClip);
-        }
-
-        public void PlayGameOver()
-        {
-            if (_gameoveClip != null) PlaySound(_gameoveClip);
-        }
-
-        public void PlayPickUp()
-        {
-            if (_coinClip != null) PlaySound(_pickupClip);
-        }
-
-        public void PlayEnemyDie()
-        {
-            if (_coinClip != null) PlaySound(_enemyDieClip);
-        }
+    }
+    public enum SoundType
+    {
+        Jump,
+        Coin,
+        Pickup,
+        GameOver
     }

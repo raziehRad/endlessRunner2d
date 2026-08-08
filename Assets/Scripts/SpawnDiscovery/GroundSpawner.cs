@@ -1,23 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
     public class GroundSpawner : MonoBehaviour
     {
-        [SerializeField] private ObjectPool groundPool;
-        [SerializeField] private ItemSpawner _itemSpawner;
-        [SerializeField] private BackgroundManager _background;
-
         [SerializeField] private int initialGround = 5;
         [SerializeField] private Vector2 xSpacing;
         [SerializeField] private Vector2 yRange;
-
+        private BackgroundManager _background;
+        private ObjectPool groundPool;
+        private ItemSpawner _itemSpawner;
         private readonly List<GameObject> grounds = new();
         public IReadOnlyList<GameObject> Grounds => grounds;
         public ObjectPool GroundPool => groundPool;
-        public ItemSpawner ItemSpawner => _itemSpawner;
+
+        private void Awake()
+        {
+            _background = GetComponent<BackgroundManager>();
+            groundPool = GetComponent<ObjectPool>();
+            _itemSpawner = GetComponent<ItemSpawner>();
+        }
 
         public void Initialize()
         {

@@ -11,6 +11,17 @@ namespace DefaultNamespace
         [SerializeField] private ObjectPool enemyPool;
 
         private GroundSpawner _spawner;
+
+        private void OnEnable()
+        {
+            GameEvents.OnReleaseItem += ReleaseItem;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnReleaseItem -= ReleaseItem;
+        }
+
         public void Start()
         {
             _spawner = GetComponent<GroundSpawner>();

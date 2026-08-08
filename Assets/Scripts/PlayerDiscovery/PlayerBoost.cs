@@ -6,101 +6,82 @@ namespace DefaultNamespace
 {
     public class PlayerBoost : MonoBehaviour
     {
-        [SerializeField] private float boostDuration = 3f;
-        [SerializeField] private GroundManager ground;
         [SerializeField] private GameObject shieldObject;
+        [SerializeField] private Weapon weapon;
+        private PlayerMovement movement;
         private PlayerHealth _playerHealth;
-        private float timer;
-        private bool isBoosted;
         private bool isShieldOn;
         private bool isPowerUpOn;
         private bool isFlyingOn;
 
-        private void OnEnable()
+        private void Awake()
         {
             _playerHealth = GetComponent<PlayerHealth>();
+            movement = GetComponent<PlayerMovement>();
         }
-
-        public void EnableBoost()
+        public void EnableBoost(BoostType boostType, ItemData item = null)
         {
-            isBoosted = true;
-            
-           // HUDManager.Instance.SwitchBoosted(true);
-            StartCoroutine(BoostTimer());
-            
-            var speed= ground.Mover.MoveSpeed + 2;
-            ground.SetMoveSpeed(speed) ;
+            if (item == null)
+            {
+                Debug.LogError("ItemData is null.");
+                return;
+            }
+            switch (boostType)
+            {
+                case BoostType.shield:
+                    if (isShieldOn) return;
+                    isShieldOn = true;
+                    shieldObject.SetActive(true);
+                    GameEvents.OnShieldBoosted?.Invoke(item.duration);
+                    StartCoroutine(RunBoost(
+                        item.duration,
+                        () => _playerHealth.SetShield(true),
+                        () =>
+                        {
+                            _playerHealth.SetShield(false);
+                            shieldObject.SetActive(false);
+                            isShieldOn = false;
+                        }));
+                    break;
+                case BoostType.powerUp:
+                    if (isPowerUpOn) return;
+                    isPowerUpOn = true;
+                    GameEvents.OnPowerUp?.Invoke(item.duration);
+                    StartCoroutine(RunBoost(
+                        item.duration,
+                        () =>  weapon.SetPowerUp(item, true),
+                        () =>
+                        {
+                            isPowerUpOn = false;
+                            weapon.SetPowerUp(item, false);
+                        }));
+                    break;
+
+                case BoostType.flying:
+                    if (isFlyingOn) return;
+                    isFlyingOn = true;
+                    GameEvents.OnFlyingBoosted?.Invoke(item.duration);
+                    StartCoroutine(RunBoost(
+                        item.duration,
+                        () =>    movement.SetFlyingMode(true, item.value),
+                        () =>
+                        {
+                            isFlyingOn = false;
+                            movement.SetFlyingMode(false, item.value);
+                        }));
+                    break;
+            }
         }
-
-        private IEnumerator BoostTimer()
+        private IEnumerator RunBoost(float duration, Action onStart, Action onEnd)
         {
-            yield return new WaitForSeconds(boostDuration);
-            DisableBoost();
-        }
-
-        public void DisableBoost()
-        {
-            if (!isBoosted)return;
-
-            isBoosted = false;
-            StopCoroutine(BoostTimer());
-            ground.SetMoveSpeed(5) ;
-            GameEvents.OnSwitchBoosted?.Invoke(false);
-          //  HUDManager.Instance.SwitchBoosted(false);
-        }
-
-        public void EnableShield(float itemDuration)
-        {
-            if (isShieldOn) return;
-            
-            isShieldOn = true;
-            shieldObject.SetActive(true);
-            GameEvents.OnShieldBoosted?.Invoke(itemDuration);
-            //HUDManager.Instance.ShieldBoosted(itemDuration);
-            StartCoroutine(ShieldCoroutine(itemDuration));
-        }
-
-        private IEnumerator ShieldCoroutine(float itemDuration)
-        {
-            _playerHealth.SetShield(true);
-            yield return new WaitForSeconds(itemDuration);
-            _playerHealth.SetShield(false);
-            shieldObject.SetActive(false);
-            isShieldOn = false;
-        }
-
-        public void EnablePowerUp(ItemData itemData)
-        {
-            if (isPowerUpOn) return;
-            isPowerUpOn = true;
-            GameEvents.OnPowerUp?.Invoke(itemData.duration);
-           // HUDManager.Instance.PowerUpBoosted(itemData.duration);
-            StartCoroutine(PowerUpCoroutine(itemData));
-        }
-
-        private IEnumerator PowerUpCoroutine(ItemData itemData)
-        {
-            GameManager.Instance.Player.SetPowerUp(itemData,true);
-            yield return new WaitForSeconds(itemData.duration);
-            isPowerUpOn = false;
-            GameManager.Instance.Player.SetPowerUp(itemData,false);
-        }
-
-        public void EnableFlying(ItemData item)
-        {
-            if (isFlyingOn) return;
-            isFlyingOn = true;
-            GameEvents.OnFlyingBoosted?.Invoke(item.duration);
-            //HUDManager.Instance.FlyingBoosted(item.duration);
-            StartCoroutine(FlyingCoroutine(item));
-        }
-
-        private IEnumerator FlyingCoroutine(ItemData itemData)
-        {
-            GameManager.Instance.Player.SetFlying(true,itemData.value);
-            yield return new WaitForSeconds(itemData.duration);
-            isFlyingOn = false;
-            GameManager.Instance.Player.SetFlying(false,itemData.value);
+            onStart?.Invoke();
+            yield return new WaitForSeconds(duration);
+            onEnd?.Invoke();
         }
     }
+}
+
+public enum BoostType
+{
+    flying,powerUp,shield
 }

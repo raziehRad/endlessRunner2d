@@ -1,13 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class GroundMover : MonoBehaviour
     {
-        [SerializeField] private GroundSpawner _spawner;
         [SerializeField] private float speed = 5f;
-        public float MoveSpeed => speed;
+        private GroundSpawner _spawner;
 
+        private void Awake()
+        {
+            _spawner = GetComponent<GroundSpawner>();
+        }
+
+        private void OnEnable()
+        {
+            GameEvents.OnSpeedChanged += SetSpeed;
+        }
+        private void OnDisable()
+        {
+            GameEvents.OnSpeedChanged -= SetSpeed;
+        }
         public void Tick()
         {
             foreach (var g in _spawner.Grounds)

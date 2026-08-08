@@ -11,11 +11,9 @@ namespace DefaultNamespace
         [SerializeField] private float moveSpeed = 2f;
         [SerializeField] private Vector2 yOffsetRange = new Vector2(3, 8);
         [Header("X Spawn")] private Vector2 Xspawning = new Vector2(1, 3);
-        
         [Header("Y Spawn")] private Vector2 Yspawning = new Vector2(-1, 1);
         private readonly List<GameObject> backs = new();
-
-        public IReadOnlyList<GameObject> Backs => backs;
+        
         private GroundSpawner _spawner;
 
         private void Start()

@@ -6,9 +6,13 @@
     {
         [SerializeField]protected TextMeshProUGUI _playerScoretxt;
         [SerializeField] protected TextMeshProUGUI _bonesTXT;
-        [SerializeField]protected HUDAnimation _HUDAnimate;
         [SerializeField] protected TextMeshProUGUI _highScoreTxt;
         private int _playerScore;
+        private HUDAnimation _HUDAnimate;
+        private void Awake()
+        {
+            _HUDAnimate = GetComponent<HUDAnimation>();
+        }
         public void SetPlayerScore(int score)
         {
             AddScore(score);

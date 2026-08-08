@@ -1,9 +1,6 @@
-﻿using System;
+﻿using DefaultNamespace;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
-namespace DefaultNamespace
-{
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float jumpForce;
@@ -16,10 +13,14 @@ namespace DefaultNamespace
         
         private float normalGravity;
         private bool isFlying;
+        private static readonly int JumpHash =
+            Animator.StringToHash("_jump");
+
+        private static readonly int FlyingHash =
+            Animator.StringToHash("flying");
 
         private void Awake()
         {
-           
             rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             normalGravity = rb.gravityScale;
@@ -36,28 +37,24 @@ namespace DefaultNamespace
 
         public void Jump()
         {
-            if (!isGround) return;
-            if (isFlying) return;
+            if (!isGround || isFlying)
+                return;
             
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-            rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
-            AudioManager.instance.PlayJump();
-            _animator.SetBool("_jump",true);
+            Jump(jumpForce);
         }
 
-        public void FlyingMode( bool enable,int flyingHeight )
+        public void SetFlyingMode( bool enable,int flyingHeight )
         {
             isFlying = enable;
-            _animator.SetBool("flying",enable);
+            _animator.SetBool(FlyingHash,enable);
             wings.SetActive(enable);
             if (enable)
             {
                 rb.gravityScale = 0;
                 rb.linearVelocity = Vector2.zero;
-
                 var pos = transform.position;
                 pos.y = flyingHeight;
-                transform.position = new Vector2(0,flyingHeight);
+                transform.position = pos;
             }
             else rb.gravityScale = normalGravity;
         }
@@ -66,7 +63,7 @@ namespace DefaultNamespace
             if (other.transform.CompareTag("Ground"))
             {
                 isGround = true;
-                _animator.SetBool("_jump",false);
+                _animator.SetBool(JumpHash,false);
             }
         }
         private void OnCollisionExit2D(Collision2D other)
@@ -77,14 +74,16 @@ namespace DefaultNamespace
                 _playerStateMachine.ChangeState(PlayerState.Ideal);
             }
         }
-
+        private void Jump(float force)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            AudioManager.instance.Play(SoundType.Jump);
+            _animator.SetBool(JumpHash, true);
+        }
         public void JumpMode(ItemData itemData)
         {
             if (isFlying) return;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-            rb.AddForce(Vector2.up*itemData.value,ForceMode2D.Impulse);
-            AudioManager.instance.PlayJump();
-            _animator.SetBool("_jump",true);
+            Jump(itemData.value);
         }
     }
-}

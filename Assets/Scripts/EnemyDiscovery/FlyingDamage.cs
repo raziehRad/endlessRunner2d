@@ -21,12 +21,9 @@ public class FlyingDamage : Enemy
         Debug.Log("take damage"+currentHealth);
         if (currentHealth<=0)
         {
-            //AudioManager.instance.PlayEnemyDie()
             GameEvents.OnScoreChanged?.Invoke(Data.score);
-            //HUDManager.Instance.SetPlayerScore(Data.score);
             currentHealth = Data.health;
             gameObject.SetActive(false);
-           
         }
     }
 

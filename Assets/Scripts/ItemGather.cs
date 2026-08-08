@@ -8,7 +8,7 @@
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                GameManager.Instance.GroundManager.Spawner.ItemSpawner.ReleaseItem(transform.GetChild(i).gameObject);
+                GameEvents.OnReleaseItem?.Invoke(transform.GetChild(i).gameObject);
             }
         }
     }

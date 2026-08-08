@@ -1,17 +1,20 @@
+using System;
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement _movement;
-    [SerializeField] private PlayerHealth health;
-    [SerializeField] private PlayerBoost boost;
-    [SerializeField] private PlayerStateMachine _stateMachine;
-    [SerializeField] private PlayerScore score;
-    [SerializeField] private PlayerCharacter  playerCharacter ;
-    [SerializeField] private Weapon  weapon ;
-    public List<CharacterData> GetCharacterList => playerCharacter.Characters;
+    private PlayerHealth health;
+    private PlayerMovement _movement;
+    private PlayerStateMachine _stateMachine;
+
+    private void Awake()
+    {
+        health = GetComponent<PlayerHealth>();
+        _stateMachine = GetComponent<PlayerStateMachine>();
+        _movement = GetComponent<PlayerMovement>();
+    }
 
     void Update()
     {
@@ -22,56 +25,8 @@ public class Player : MonoBehaviour
     {
         _movement.Tick();
     }
-
     public void TakeDamage(int damage)
     {
         health.TakeDamage(damage);
-    }
-
-    public void ApplyItem(ItemData item, Collider2D other=null)
-    {
-        switch (item.effect)
-        {
-            case ItemEffect.Heal:
-                health.Heal(item.value);
-                break;
-
-            case ItemEffect.Shield:
-                boost.EnableShield(item.duration);
-                break;
-
-            case ItemEffect.WeaponUpgrade:
-                boost.EnablePowerUp(item);
-                break;
-            case ItemEffect.Flying:
-                boost.EnableFlying(item);
-                break;
-            case ItemEffect.AddCoin:
-                score.AddCoin(item.value,other);
-                break;
-            case ItemEffect.Jump:
-                JumpMode(item);
-                break;
-        }
-    }
-
-    private void JumpMode(ItemData itemData)
-    {
-        _movement.JumpMode(itemData);
-    }
-
-    public void SetCharacter()
-    {
-        playerCharacter.ApplyCharacter(SaveManager.LoadCharacter());
-    }
-
-    public void SetPowerUp(ItemData itemData, bool enable)
-    {
-        weapon.SetPowerUp(itemData,enable);
-    }
-
-    public void SetFlying( bool enable, int flyingHeight)
-    {
-        _movement.FlyingMode(enable,flyingHeight);
     }
 }

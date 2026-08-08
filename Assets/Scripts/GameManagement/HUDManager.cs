@@ -8,9 +8,16 @@
 
     public class HUDManager : MonoBehaviour
     {
-        [SerializeField]protected HUDPlayer _hUDPlayer;
-      [SerializeField]protected HUDScore _HUDScore;
-      [SerializeField] protected HUDBoost _HUDBoost;
+        private HUDPlayer _hUDPlayer;
+        private HUDScore _HUDScore;
+        private HUDBoost _HUDBoost;
+
+      private void Awake()
+      {
+          _hUDPlayer = GetComponent<HUDPlayer>();
+          _HUDScore = GetComponent<HUDScore>();
+          _HUDBoost = GetComponent<HUDBoost>();
+      }
 
       private void OnEnable()
         {

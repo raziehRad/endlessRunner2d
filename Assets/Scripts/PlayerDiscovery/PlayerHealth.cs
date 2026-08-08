@@ -7,15 +7,10 @@ namespace DefaultNamespace
     {
         [SerializeField] private int maxHealth = 100;
         private int currentHealth;
-
-        private PlayerStateMachine _stateMachine;
-
         private bool isShieldOn;
 
-        
         private void Awake()
         {
-            _stateMachine = GetComponent<PlayerStateMachine>();
             currentHealth = maxHealth;
         }
 
@@ -28,15 +23,12 @@ namespace DefaultNamespace
             if (isShieldOn) return;
             
             currentHealth -= damage;
-            GameManager.Instance.GroundManager.PlayerSpeed.HitEnemy();
-            //HUDManager.Instance.SetPlayerHealth(currentHealth);
+            GameEvents.OnHitEnemy?.Invoke();
             GameEvents.OnHealthChanged?.Invoke(currentHealth);
             GameEvents.OnCoinChanged?.Invoke(currentHealth);
-            //HUDManager.Instance.SetItemCount(0);
             if (currentHealth<=0)
             {
-                GameEvents.OnPlayerDied?.Invoke();
-                _stateMachine.ChangeState(PlayerState.Die);
+                GameEvents.OnPlayerDied?.Invoke(PlayerState.Die);
             }
         }
 
@@ -46,7 +38,6 @@ namespace DefaultNamespace
             currentHealth += itemValue;
             if (currentHealth>maxHealth)
                 currentHealth = maxHealth;
-           // HUDManager.Instance.SetPlayerHealth(currentHealth);
             GameEvents.OnHealthChanged?.Invoke(currentHealth);
         }
     }

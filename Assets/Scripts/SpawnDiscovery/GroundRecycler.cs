@@ -1,12 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
     public class GroundRecycler : MonoBehaviour
     {
-        [SerializeField] private GroundSpawner _spawner;
         [SerializeField] private Vector2 xSpacing;
         [SerializeField] private Vector2 yRange;
+        private GroundSpawner _spawner;
+        private void Awake()
+        {
+            _spawner = GetComponent<GroundSpawner>();
+        }
 
         public void Tick()
         {

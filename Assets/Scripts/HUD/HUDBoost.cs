@@ -1,4 +1,5 @@
 ﻿
+    using System;
     using System.Collections;
     using TMPro;
     using UnityEngine;
@@ -9,8 +10,14 @@
         [SerializeField] protected Image shieldTimerImage;
         [SerializeField] protected Image powerUpTimerImage;
         [SerializeField] protected Image flyingTimerImage;
-        [SerializeField] protected TextMeshProUGUI _boostedItem;
-        [SerializeField]protected HUDAnimation _HUDAnimate;
+        [SerializeField] protected TextMeshProUGUI _boostedItem; 
+        private HUDAnimation _HUDAnimate;
+
+        private void Awake()
+        {
+            _HUDAnimate = GetComponent<HUDAnimation>();
+        }
+
         internal void FlyingBoosted(float itemDuration)
         {
             StartCoroutine(FlyingCoroutine(itemDuration));

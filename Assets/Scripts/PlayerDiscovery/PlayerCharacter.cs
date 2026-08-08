@@ -1,16 +1,37 @@
-﻿
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
     using UnityEngine;
    
 
     public class PlayerCharacter : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Animator animator;
         [SerializeField] private List<CharacterData> characters;
-        public List<CharacterData> Characters => characters;
-        public void ApplyCharacter(int characterIndex)
+         private SpriteRenderer _spriteRenderer;
+         private Animator animator;
+         public List<CharacterData> Characters => characters;
+
+         private void OnEnable()
+         {
+             GameEvents.OnSetCharacter += ApplyCharacter;
+             GameEvents.OnGetCharacter += GetCharacters;
+         }
+         private void OnDisable()
+         {
+             GameEvents.OnSetCharacter -= ApplyCharacter;
+             GameEvents.OnGetCharacter -= GetCharacters;
+         }
+         private void Awake()
         {
+            animator = GetComponent<Animator>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+         private IReadOnlyList<CharacterData> GetCharacters()
+         {
+             return characters;
+         }
+        private void ApplyCharacter()
+        {
+           var characterIndex = SaveManager.LoadCharacter();
             var data = characters[characterIndex];
             _spriteRenderer.sprite = data.IdleSprite;
             animator.runtimeAnimatorController = data.animator;

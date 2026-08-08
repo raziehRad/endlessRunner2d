@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,18 +7,27 @@ namespace DefaultNamespace
 {
     public class PlayerStateMachine : MonoBehaviour
     {
-        public PlayerState currenctState { get; private set; }
-
-        [SerializeField] private PlayerMovement _movement;
-        [SerializeField] private PlayerBoost _boost;
         [SerializeField] private GameObject _dieFX;
-        
+        public PlayerState currenctState { get; private set; }
         private Animator _animator;
+        private PlayerMovement _movement;
+        private void Awake()
+        {
+            _movement = GetComponent<PlayerMovement>();
+            _animator = GetComponent<Animator>();
+        }
 
+        private void OnEnable()
+        {
+            GameEvents.OnPlayerDied+= ChangeState;
+        }
+        private void OnDisable()
+        {
+            GameEvents.OnPlayerDied-= ChangeState;
+        }
         void Start()
         {
             currenctState = PlayerState.Ideal;
-            _animator = GetComponent<Animator>();
         }
 
         public void ChangeState(PlayerState newState)
@@ -28,18 +38,12 @@ namespace DefaultNamespace
                 case PlayerState.Jump:
                     _movement.Jump();
                     break;
-                case PlayerState.Run:
-                    _boost.EnableBoost(); 
-                    break;
                 case PlayerState.Die:
                     GameOverAction();
                     break;
                 case PlayerState.Fall:
                     GameOverAction();
                     break;
-                case PlayerState.Ideal:
-                    _boost.DisableBoost();
-                     break;
             }
         }
 
@@ -50,7 +54,7 @@ namespace DefaultNamespace
         
         private void GameOverAction()
         {
-            AudioManager.instance.PlayGameOver();
+            AudioManager.instance.Play(SoundType.GameOver);
             _animator.CrossFade("Die",0.5f);
             Instantiate(_dieFX, transform.position, quaternion.identity);
             Invoke("ReLoad",0.2f);

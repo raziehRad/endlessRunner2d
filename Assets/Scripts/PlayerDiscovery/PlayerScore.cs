@@ -1,13 +1,17 @@
-﻿using DefaultNamespace;
+﻿using System;
+using DefaultNamespace;
 using UnityEngine;
 
 public class PlayerScore : MonoBehaviour
 {
     [SerializeField] private int score;
     [SerializeField] private int coins;
+    private PlayerPickHandler _pickHandler;
 
-    public int Score => score;
-    public int Coins => coins;
+    private void Awake()
+    {
+        _pickHandler = GetComponent<PlayerPickHandler>();
+    }
 
     public void AddScore(int value)
     {
@@ -18,10 +22,8 @@ public class PlayerScore : MonoBehaviour
     public void AddCoin(int value, Collider2D other)
     {
         coins += value;
-        AudioManager.instance.PlayCoin(coins);
-        GetComponent<PlayerPickHandler>().SpawnCoinEffect(other,score);
+        _pickHandler.SpawnCoinEffect(other,score);
         GameEvents.OnCoinChanged?.Invoke(coins);
-        //HUDManager.Instance.SetItemCount(score);
         GameEvents.OnScoreChanged?.Invoke(score);
         // Update Coin UI
     }

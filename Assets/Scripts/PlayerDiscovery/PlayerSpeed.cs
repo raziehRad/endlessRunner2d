@@ -1,9 +1,8 @@
-﻿
-    using UnityEngine;
+﻿using System;
+using UnityEngine;
 
     public class PlayerSpeed  : MonoBehaviour
     {
-
         [Header("Speed")]
         [SerializeField] private float baseSpeed = 5f;
         [SerializeField] private float speedPerLevel = 0.5f;
@@ -12,11 +11,22 @@
         [SerializeField] private float maxSpeed = 15f;
         private int coinCount;
         private int speedLevel;
+
+        private void OnEnable()
+        {
+            GameEvents.OnHitEnemy += HitEnemy;
+            GameEvents.OnSpeedAddCoin += AddCoin;
+        }
+        private void OnDisable()
+        {
+            GameEvents.OnHitEnemy -= HitEnemy;
+            GameEvents.OnSpeedAddCoin -= AddCoin;
+        }
         private void Start()
         {
             UpdateSpeed();
         }
-        public void AddCoin(int amount = 1)
+        private void AddCoin(int amount = 1)
         {
             coinCount += amount;
 
@@ -24,7 +34,7 @@
             speedLevel = Mathf.Min(coinCount / coinsPerLevel, maxLevel);
         }
 
-        public void HitEnemy()
+        private void HitEnemy()
         {
             speedLevel = Mathf.Max(0, speedLevel - 1);
             coinCount = speedLevel * coinsPerLevel;
@@ -36,9 +46,6 @@
         {
             float speed = baseSpeed + speedLevel * speedPerLevel;
             speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
-            
-            GameManager.Instance.GroundManager.SetMoveSpeed(speed);
             GameEvents.OnSpeedChanged?.Invoke((int)speed);
-            //GameManager.Instance.HUDManager.SpeedTxt((int)speed);
         }
     }
