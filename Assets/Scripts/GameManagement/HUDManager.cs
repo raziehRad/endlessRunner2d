@@ -23,7 +23,6 @@
         {
             GameEvents.OnHealthChanged += _hUDPlayer.SetPlayerHealth;
             GameEvents.OnScoreChanged += _HUDScore.SetPlayerScore;
-            GameEvents.OnCoinChanged += _hUDPlayer.SetItemCount;
             GameEvents.OnSpeedChanged += _hUDPlayer.SpeedTxt;
             GameEvents.OnSwitchBoosted += _HUDBoost.SwitchBoosted;
             GameEvents.OnShieldBoosted += _HUDBoost.ShieldBoosted;
@@ -35,7 +34,6 @@
         {
             GameEvents.OnHealthChanged -= _hUDPlayer.SetPlayerHealth;
             GameEvents.OnScoreChanged -=_HUDScore. SetPlayerScore;
-            GameEvents.OnCoinChanged -= _hUDPlayer.SetItemCount;
             GameEvents.OnSpeedChanged -= _hUDPlayer.SpeedTxt;
             GameEvents.OnSwitchBoosted -=_HUDBoost. SwitchBoosted;
             GameEvents.OnShieldBoosted -=_HUDBoost. ShieldBoosted;

@@ -23,15 +23,6 @@
             _playerHealthtxt.text = damage.ToString();
             _HUDAnimate.ScaleBounce(_playerHealthtxt.transform);
         }
-        public void SetItemCount(int count)
-        {
-            _playerItemPic.gameObject.SetActive(count!=0);
-            _playerItemtxt.text = count + "X";
-            if (_playerItemPic.gameObject.activeInHierarchy)
-            {
-                _HUDAnimate.ScaleBounce(_playerItemtxt.transform);
-            }
-        }
         public void SpeedTxt(float speed)
         {
            // if (speed==_playerSpeed) return;
