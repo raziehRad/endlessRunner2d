@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+// Stores character data and configuration
 [CreateAssetMenu(fileName = "new Character", menuName = "Game/Character")]
 
     public class CharacterData : ScriptableObject

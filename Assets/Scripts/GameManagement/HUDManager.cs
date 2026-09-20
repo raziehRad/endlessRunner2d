@@ -23,6 +23,7 @@
         {
             GameEvents.OnHealthChanged += _hUDPlayer.SetPlayerHealth;
             GameEvents.OnScoreChanged += _HUDScore.SetPlayerScore;
+            GameEvents.OnSetScore += _HUDScore.SetScore;
             GameEvents.OnSpeedChanged += _hUDPlayer.SpeedTxt;
             GameEvents.OnSwitchBoosted += _HUDBoost.SwitchBoosted;
             GameEvents.OnShieldBoosted += _HUDBoost.ShieldBoosted;
@@ -34,6 +35,7 @@
         {
             GameEvents.OnHealthChanged -= _hUDPlayer.SetPlayerHealth;
             GameEvents.OnScoreChanged -=_HUDScore. SetPlayerScore;
+            GameEvents.OnSetScore -= _HUDScore.SetScore;
             GameEvents.OnSpeedChanged -= _hUDPlayer.SpeedTxt;
             GameEvents.OnSwitchBoosted -=_HUDBoost. SwitchBoosted;
             GameEvents.OnShieldBoosted -=_HUDBoost. ShieldBoosted;
@@ -44,6 +46,7 @@
       
 
     }
+    // Data structure used for saving player progress
     [System.Serializable]
     public class SaveData
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
     using UnityEngine;
    
-
+// Manages the player's selected character
     public class PlayerCharacter : MonoBehaviour
     {
         [SerializeField] private List<CharacterData> characters;

@@ -43,6 +43,7 @@ using UnityEngine;
             Jump(jumpForce);
         }
 
+        // Enable or disable the player's flying mode
         public void SetFlyingMode( bool enable,int flyingHeight )
         {
             isFlying = enable;
@@ -74,6 +75,7 @@ using UnityEngine;
                 _playerStateMachine.ChangeState(PlayerState.Ideal);
             }
         }
+        // Apply jump force and trigger the jump animation and sound
         private void Jump(float force)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);

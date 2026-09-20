@@ -2,6 +2,7 @@
     using DefaultNamespace;
     using UnityEngine;
 
+    
     public class PlayerItemHandler: MonoBehaviour
     {
         private PlayerHealth _health;
@@ -25,6 +26,7 @@
         {
             GameEvents.OnItemCollected -= ApplyItem;
         }
+        // Apply the appropriate effect based on the collected item
         private void ApplyItem(ItemData item, Collider2D other=null)
         {
             switch (item.effect)

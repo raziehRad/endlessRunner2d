@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace DefaultNamespace
-{
+// Manages background spawning, movement, and recycling
     public class BackgroundManager : MonoBehaviour
     {
         [SerializeField] private ObjectPool backPool;
@@ -20,7 +19,7 @@ namespace DefaultNamespace
         {
             _spawner = GetComponent<GroundSpawner>();
         }
-
+        // Spawn a background object at the specified position
         public void Spawn(float x, float groundY)
         {
             var back = backPool.GetFromPool();
@@ -35,7 +34,7 @@ namespace DefaultNamespace
             back.SetActive(true);
             backs.Add(back);
         }
-
+        // Move active background objects and recycle them when needed
         public void Tick()
         {
             foreach (var back in backs)
@@ -43,7 +42,7 @@ namespace DefaultNamespace
 
             RecycleIfNeeded();
         }
-
+        // Recycle the oldest background object and spawn a new one
         private void RecycleIfNeeded()
         {
             if (backs.Count == 0) return;
@@ -72,4 +71,3 @@ namespace DefaultNamespace
             moveSpeed = speed;
         }
     }
-}

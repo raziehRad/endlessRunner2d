@@ -2,8 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-namespace DefaultNamespace
-{
+
+    // Handles activating and managing player boosts
     public class PlayerBoost : MonoBehaviour
     {
         [SerializeField] private GameObject shieldObject;
@@ -19,6 +19,7 @@ namespace DefaultNamespace
             _playerHealth = GetComponent<PlayerHealth>();
             movement = GetComponent<PlayerMovement>();
         }
+        // Activate a boost and manage its duration
         public void EnableBoost(BoostType boostType, ItemData item = null)
         {
             if (item == null)
@@ -72,6 +73,7 @@ namespace DefaultNamespace
                     break;
             }
         }
+        // Run a boost for a specific duration
         private IEnumerator RunBoost(float duration, Action onStart, Action onEnd)
         {
             onStart?.Invoke();
@@ -79,7 +81,7 @@ namespace DefaultNamespace
             onEnd?.Invoke();
         }
     }
-}
+
 
 public enum BoostType
 {

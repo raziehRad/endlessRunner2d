@@ -2,8 +2,8 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace DefaultNamespace
-{
+
+// Handles item pickup detection and coin collection effects
     public class PlayerPickHandler : MonoBehaviour
     {
         [SerializeField] private GameObject _coinFX;
@@ -13,7 +13,7 @@ namespace DefaultNamespace
         {
             _player = GetComponent<Player>();
         }
-
+        // Detect and collect items when the player enters their trigger
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.TryGetComponent(out Item item))
@@ -47,4 +47,3 @@ namespace DefaultNamespace
             Destroy(fx,0.7f);
         }
     }
-}

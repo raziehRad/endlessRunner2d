@@ -4,12 +4,16 @@ using UnityEngine;
     public class HUDAnimation : MonoBehaviour
     {
         [SerializeField] protected TextMeshProUGUI _bonesTXT;
+        
+        // Apply a quick bounce scale animation to a target
         public void ScaleBounce(Transform _transform)
         {
             _transform.DOScale(new Vector3(1.2f, 1.2f, 1f), 0.3f)
                 .SetEase(Ease.OutBack).OnComplete((() => _transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f)
                     .SetEase(Ease.InOutSine)));
         }
+        
+        // Animate the bones counter and hide it after the animation
         public void BonesScale(Transform target)
         {
             Sequence s = DOTween.Sequence();

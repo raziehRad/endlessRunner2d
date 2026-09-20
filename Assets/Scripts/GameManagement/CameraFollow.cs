@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Keeps the camera following the player while limiting its movement
+// based on the player's vertical position.
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private GameObject _player;

@@ -17,6 +17,7 @@ public static class SaveManager
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
     }
+    // Load the player's high score from the save file
     public static int LoadHighScore()
     {
         if (File.Exists(savePath))
@@ -38,6 +39,7 @@ public static class SaveManager
 
         Save(data);
     }
+    // Load the selected character from the save file
     public static int LoadCharacter()
     {
         if (File.Exists(savePath))

@@ -1,48 +1,64 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
-
+using UnityEngine.AddressableAssets;
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private GameObject[] prefabs;
+    [SerializeField] private AssetReferenceGameObject[] prefabs;
     [SerializeField] private int poolSize = 5;
 
     private List<GameObject> pool = new List<GameObject>();
+    private Task poolReadyTask;
+    private async void Awake()
+    {
+        poolReadyTask = InitializePool();
+    }
 
-    void Awake()
+    private async Task InitializePool()
     {
         for (int i = 0; i < poolSize; i++)
         {
-            Create();
+            await Create();
         }
     }
-
-    private GameObject Create()
+    public Task WaitUntilReady()
     {
-        var rand = Random.Range(0, prefabs.Length);
-        GameObject obj = Instantiate(prefabs[rand]);
+        return poolReadyTask;
+    }
+    // Instantiate an Addressable object and add it to the pool
+    private async Task Create()
+    {
+        int rand = Random.Range(0, prefabs.Length);
+
+        GameObject obj = await prefabs[rand].InstantiateAsync().Task;
+
         obj.SetActive(false);
         pool.Add(obj);
-        return obj;
     }
+    // Get an inactive object from the pool
     public GameObject GetFromPool()
     {
-        foreach (var obj1 in pool)
+        foreach (var obj in pool)
         {
-            if (!obj1.activeInHierarchy)
+            if (!obj.activeInHierarchy)
             {
-                obj1.SetActive(true);
-                return obj1;
+                obj.SetActive(true);
+                return obj;
             }
         }
-        
-        return Create();
+
+        ExpandPool();
+        Debug.LogWarning($"Pool {gameObject.name} is empty!");
+        return null;
     }
-    public void RemoveFromPool(GameObject obj)
+    private async void ExpandPool()
+    {
+        await Create();
+    }
+    public void ReturnToPool(GameObject obj)
     {
         if (obj == null) return;
 
-        pool.Remove(obj);
-        Destroy(obj,0.5f);
+        obj.SetActive(false);
     }
 }

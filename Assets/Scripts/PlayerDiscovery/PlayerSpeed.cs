@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-
+// Manages the player's speed progression based on collected coins
     public class PlayerSpeed  : MonoBehaviour
     {
         [Header("Speed")]
@@ -26,6 +26,7 @@ using UnityEngine;
         {
             UpdateSpeed();
         }
+        // Increase the speed level based on collected coins
         private void AddCoin(int amount = 1)
         {
             coinCount += amount;

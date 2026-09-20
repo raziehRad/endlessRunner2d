@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6621637331190706955}
   - component: {fileID: 2243626118020598108}
   - component: {fileID: -4218855441510036557}
-  - component: {fileID: 1822396447225936156}
+  - component: {fileID: -2560277290380275837}
   m_Layer: 0
   m_Name: Shielditem
   m_TagString: item
@@ -149,25 +149,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: cfcfeae028cb30847bb0a2d5f9d44862, type: 2}
---- !u!95 &1822396447225936156
-Animator:
-  serializedVersion: 7
+--- !u!114 &-2560277290380275837
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5420566825862812834}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fee531a402bed0b418f5209071065760, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66830398a9894739ae6bb156d44f66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 180

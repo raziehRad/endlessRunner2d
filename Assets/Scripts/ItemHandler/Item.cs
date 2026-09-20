@@ -6,6 +6,7 @@
         [SerializeField] private ItemData data;
         public ItemData Data => data;
 
+        // Handle item collection and trigger its effect
         public void Collect(Player player, Collider2D other=null)
         {
             GameEvents.OnItemCollected?.Invoke(data, other);

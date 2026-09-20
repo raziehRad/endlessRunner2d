@@ -12,6 +12,7 @@
 
         // Score
         public static Action<int> OnScoreChanged;
+        public static Action<int> OnSetScore;
         public static Action<int> OnCoinChanged;
 
         // Speed
@@ -26,4 +27,5 @@
         public static Action OnHitEnemy;
         public static Action<int> OnSpeedAddCoin;
         public static Func<IReadOnlyList<CharacterData>> OnGetCharacter;
+        public static Action OnStartGame;
     }

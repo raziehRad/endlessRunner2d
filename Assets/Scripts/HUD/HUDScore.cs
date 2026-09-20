@@ -6,7 +6,7 @@
     {
         [SerializeField]protected TextMeshProUGUI _playerScoretxt;
         [SerializeField] protected TextMeshProUGUI _bonesTXT;
-        [SerializeField] protected TextMeshProUGUI _highScoreTxt;
+      
         private int _playerScore;
         private HUDAnimation _HUDAnimate;
         private void Awake()
@@ -19,7 +19,14 @@
             _playerScoretxt.text = _playerScore.ToString();
             CheckPrize(_playerScore);
         }
-        public void AddScore(int amount)
+
+        public void SetScore(int amount)
+        {
+            _playerScore = amount;
+            _playerScoretxt.text = _playerScore.ToString();
+            SaveManager.SaveHighScore(_playerScore);
+        }
+        private void AddScore(int amount)
         {
             _playerScore += amount;
             var highScore= SaveManager.LoadHighScore();
@@ -31,6 +38,8 @@
                 //FirebaseAnalytics.Instance.LogLevelComplete(highScore);
             }
         }
+        
+        // Display a reward message at specific score milestones
         private void CheckPrize(int score)
         {
             if (score%100==0)
@@ -61,7 +70,7 @@
             if (_playerScore>highScore)
             {
                 //PlayerPrefs.SetInt("Highscore",_playerScore);
-                _highScoreTxt.text = _playerScore.ToString();
+               // _highScoreTxt.text = _playerScore.ToString();
                 // FirebaseAnalytics.Instance.LogLevelComplete(highScore);
             }
         }
@@ -70,6 +79,6 @@
             var highscore = SaveManager.LoadHighScore();
             highscore += reward;
             // PlayerPrefs.SetInt("Highscore", highscore);
-            _highScoreTxt.text = highscore.ToString();
+            //_highScoreTxt.text = highscore.ToString();
         }
     }

@@ -3,8 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace DefaultNamespace
-{
+// Manages the player's states and state transitions
     public class PlayerStateMachine : MonoBehaviour
     {
         [SerializeField] private GameObject _dieFX;
@@ -29,7 +28,7 @@ namespace DefaultNamespace
         {
             currenctState = PlayerState.Ideal;
         }
-
+// Change the player's current state and execute its behavior
         public void ChangeState(PlayerState newState)
         {
             currenctState = newState;
@@ -65,4 +64,3 @@ namespace DefaultNamespace
             SceneManager.LoadScene(0);
         }
     }
-}

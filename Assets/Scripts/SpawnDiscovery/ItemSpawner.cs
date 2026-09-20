@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
-namespace DefaultNamespace
-{
+// Handles spawning and recycling of items and enemies
     public class ItemSpawner : MonoBehaviour
     {
         [SerializeField] private ObjectPool itemPool;
@@ -26,7 +25,7 @@ namespace DefaultNamespace
         {
             _spawner = GetComponent<GroundSpawner>();
         } 
-
+        // Spawn items and enemies on the given ground segment
         public void SpawnItems(GameObject ground, bool safeSpawn)
         {
             TrySpawn(ground, itemPool, ItemType.Item);
@@ -36,14 +35,14 @@ namespace DefaultNamespace
                 TrySpawn(ground, enemyPool, ItemType.Enemy);
             }
         }
-
-        private void TrySpawn(GameObject ground, ObjectPool pool, ItemType type)
+        // Try to spawn an item or enemy at a random position
+        private Task TrySpawn(GameObject ground, ObjectPool pool, ItemType type)
         {
-            if (Random.value>0.5f)return;
+            if (Random.value>0.5f)return Task.CompletedTask;
             var xpos= SetXPosition(ground);
             
             var item = pool.GetFromPool();
-            if (item==null)return;
+            if (item==null)return Task.CompletedTask;
 
             item.SetActive(true);
             item.transform.SetParent(ground.transform);
@@ -62,13 +61,16 @@ namespace DefaultNamespace
                     {
                         item.transform.GetChild(i).gameObject.SetActive(true);
                     }
-                    return;
+
+                    return Task.CompletedTask;
                 }
                 item.transform.position = new Vector3(xpos, ground.transform.position.y +itemComponent.Data.yPos);
                 item.transform.DOScale(itemComponent.Data.scale, 0.01f);
             }
-        }
 
+            return Task.CompletedTask;
+        }
+        // Calculate a random horizontal position on the ground
         private float SetXPosition(GameObject ground)
         {
             var chancePos = Random.Range(0f, 1f);
@@ -82,7 +84,6 @@ namespace DefaultNamespace
 
         private void ReleaseItem(GameObject obj)
         {
-            itemPool.RemoveFromPool(obj);
+            itemPool.ReturnToPool(obj);
         }
     }
-}

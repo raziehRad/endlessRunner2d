@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DefaultNamespace
-{
+// Manages the player's health and damage system
     public class PlayerHealth : MonoBehaviour ,IDamageable
     {
         [SerializeField] private int maxHealth = 100;
@@ -32,6 +31,7 @@ namespace DefaultNamespace
             }
         }
 
+        // Restore the player's health up to the maximum value
         public void Heal(int itemValue)
         {
             if (currentHealth >= maxHealth) return;
@@ -41,4 +41,3 @@ namespace DefaultNamespace
             GameEvents.OnHealthChanged?.Invoke(currentHealth);
         }
     }
-}

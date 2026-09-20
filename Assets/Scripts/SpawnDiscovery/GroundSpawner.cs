@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace DefaultNamespace
-{
+// Manages ground spawning, initialization, and recycling
     public class GroundSpawner : MonoBehaviour
     {
         [SerializeField] private int initialGround = 5;
@@ -31,10 +30,14 @@ namespace DefaultNamespace
             for (int i = 0; i < initialGround; i++)
             {
                 var go = Spawn(spawnX, Random.Range(yRange.x, yRange.y), true);
+                if (go == null)
+                    return;
                 spawnX += GetWidth(go) + Random.Range(xSpacing.x, xSpacing.y);
             }
-        }
 
+            GameEvents.OnStartGame?.Invoke();
+        }
+        // Spawn a ground segment and its related objects
         public GameObject Spawn(float x, float y, bool safeSpawn)
         {
             var ground = groundPool.GetFromPool();
@@ -53,7 +56,7 @@ namespace DefaultNamespace
         {
             for (int i = 0; i < ground.transform.childCount; i++)
             {
-                if ( ground.transform.GetChild(i).CompareTag("GroundItem")) return;
+                if ( ground.transform.GetChild(i).CompareTag("GroundItem")) continue;
                 ground.transform.GetChild(i).gameObject.SetActive(false);
                 ground.transform.GetChild(i).SetParent(null);
             }
@@ -71,4 +74,3 @@ namespace DefaultNamespace
             return g != null ? g.Data.width : 10f;
         }
     }
-}

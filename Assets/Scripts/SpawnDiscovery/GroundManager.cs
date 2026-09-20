@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using DefaultNamespace;
-
+// Coordinates ground and background systems
 public class GroundManager : MonoBehaviour
 {
      private GroundSpawner _spawner;
@@ -22,8 +22,9 @@ public class GroundManager : MonoBehaviour
         _playerSpeed = GetComponent<PlayerSpeed>();
     }
 
-    void Start()
+     async void Start()
     {
+        await _spawner.GroundPool.WaitUntilReady();
         _spawner.Initialize();
     }
 

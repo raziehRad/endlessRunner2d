@@ -12,6 +12,7 @@ namespace DefaultNamespace
             _damage = damage;
         }
 
+        // Apply damage when the bullet hits a player or enemy
         private void OnTriggerEnter2D(Collider2D other)
         {
             Destroy(gameObject,0.2f);

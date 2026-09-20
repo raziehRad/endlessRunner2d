@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1696153220552544560}
   - component: {fileID: 8077920054895758233}
   - component: {fileID: 2077226260877556284}
-  - component: {fileID: 8200211145920037172}
+  - component: {fileID: -2647957984154291978}
   m_Layer: 0
   m_Name: powerupitem
   m_TagString: item
@@ -149,25 +149,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 131c242f275abcd4b81279564fc9955c, type: 2}
---- !u!95 &8200211145920037172
-Animator:
-  serializedVersion: 7
+--- !u!114 &-2647957984154291978
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5199166833623193480}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fee531a402bed0b418f5209071065760, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66830398a9894739ae6bb156d44f66a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 180

@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DefaultNamespace
-{
+  
+    // Handles the movement speed of ground objects
     public class GroundMover : MonoBehaviour
     {
         [SerializeField] private float speed = 5f;
@@ -34,4 +34,3 @@ namespace DefaultNamespace
             speed = newSpeed;
         }
     }
-}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+// Handles character selection and character preview
 public class CharacterSelectHandler : MonoBehaviour
 {
     [SerializeField] private Image characterImage;
@@ -32,6 +32,7 @@ public class CharacterSelectHandler : MonoBehaviour
         WrapIndex();
         RefreshCharacter();
     }
+    // Keep the character index within the available range
     private void WrapIndex()
     {
         if (characterIndex >= _characters.Count)

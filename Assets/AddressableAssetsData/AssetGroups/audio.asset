@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: audio
+  m_EditorClassIdentifier: 
+  m_GroupName: audio
+  m_GUID: 18f2edf8dd4be7146a484e84e469eb0a
+  m_SerializeEntries:
+  - m_GUID: 2b6f9605f140fa9469fb3487ad4d07d7
+    m_Address: Assets/Audio/mixkit-unlock-game-notification-253.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ed944b5226bc7642a7cfd2ebb5f35c7
+    m_Address: Assets/Audio/699514__valenspire__coin_drop_19.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5e086725ebc45646a63bef0422d534f
+    m_Address: Assets/Audio/350900__cabled_mess__jump_c_07.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbe391ab07359d143a91b2e51fb64b34
+    m_Address: Assets/Audio/76376__deleted_user_877451__game_over.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5ec614435fdf704eb9e7632f0bd65cf
+    m_Address: Assets/Audio/Tunepocket-Game-Pickup-Alert-Preview.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3c317f1cc7d155a4ca5800804e0940d1, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3ac0df323b0592643a106f5b551b1d7a, type: 2}
+    - {fileID: 11400000, guid: 75a706d410689f442bb6fae905f36884, type: 2}

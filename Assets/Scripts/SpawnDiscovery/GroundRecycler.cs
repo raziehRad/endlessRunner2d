@@ -2,8 +2,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace DefaultNamespace
-{
+    // Recycles ground objects and spawns new ones ahead of the player
     public class GroundRecycler : MonoBehaviour
     {
         [SerializeField] private Vector2 xSpacing;
@@ -33,5 +32,5 @@ namespace DefaultNamespace
                 _spawner.Spawn(spawnX, y, false);
             }
         }
-    }
+    
 }

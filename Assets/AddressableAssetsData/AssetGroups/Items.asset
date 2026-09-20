@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Items
+  m_EditorClassIdentifier: 
+  m_GroupName: Items
+  m_GUID: 4f7a4ff8820a17f4286a07fdad367614
+  m_SerializeEntries:
+  - m_GUID: 0943cba3a5050a041801314407e984b0
+    m_Address: Assets/Prefabs/iTEMS/silveritem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0b6283a0d5a44c0489a241a01026df40
+    m_Address: Assets/Prefabs/iTEMS/Circleitem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 317e18c9811d1b848a8e00b27a7dba5c
+    m_Address: Assets/Prefabs/iTEMS/powerupitem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d29ac83bda7f434bbbf533d42849652
+    m_Address: Assets/Prefabs/iTEMS/flyingitem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c4da2cde2d8f7e40b8a49fbbb9b401f
+    m_Address: Assets/Prefabs/iTEMS/heart.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7dddea0c8db202c45861f40f781767b5
+    m_Address: Assets/Prefabs/iTEMS/CoinsGold.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90e106ea4089bba46bd570770471b1c5
+    m_Address: Assets/Prefabs/iTEMS/Shielditem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a43b71557a8f35346811c331a9abcba6
+    m_Address: Assets/Prefabs/iTEMS/Jumpitem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2f08011b07808045844b3070b5dde79
+    m_Address: Assets/Prefabs/iTEMS/SilverCoins.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3c317f1cc7d155a4ca5800804e0940d1, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4668810ef7347c64b99073b767b6f7db, type: 2}
+    - {fileID: 11400000, guid: 3b5fce3b4b4d21f4dbd1c12eb2388f21, type: 2}

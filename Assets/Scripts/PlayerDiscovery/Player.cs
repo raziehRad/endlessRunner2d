@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
+// Acts as the main coordinator for player-related systems.
+// Each responsibility is delegated to a dedicated component.
 public class Player : MonoBehaviour
 {
     private PlayerHealth health;

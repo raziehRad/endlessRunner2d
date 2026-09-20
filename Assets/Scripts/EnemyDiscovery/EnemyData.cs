@@ -1,6 +1,10 @@
 ﻿
     using UnityEngine;
 
+    // Stores configurable data for an enemy.
+// ScriptableObject allows different enemies to share the same data structure
+// without hardcoding their values in the enemy logic.
+    
     [CreateAssetMenu(fileName = "new enemy",menuName = "Game/enemy")]
     public class EnemyData : ScriptableObject
     {
