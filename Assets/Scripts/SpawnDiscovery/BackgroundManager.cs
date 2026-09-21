@@ -22,7 +22,7 @@ using Random = UnityEngine.Random;
         // Spawn a background object at the specified position
         public void Spawn(float x, float groundY)
         {
-            var back = backPool.GetFromPool();
+            var back = backPool.GetFromPool( Random.Range(0, backPool.PrefabCount));
             if (back == null) return;
 
             back.transform.position = new Vector3(

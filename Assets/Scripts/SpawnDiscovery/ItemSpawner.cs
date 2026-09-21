@@ -11,6 +11,9 @@ using Random = UnityEngine.Random;
 
         private GroundSpawner _spawner;
 
+        private int _lastItemIndex = -1;
+        private int _lastEnemyIndex = -1;
+
         private void OnEnable()
         {
             GameEvents.OnReleaseItem += ReleaseItem;
@@ -26,7 +29,7 @@ using Random = UnityEngine.Random;
             _spawner = GetComponent<GroundSpawner>();
         } 
         // Spawn items and enemies on the given ground segment
-        public void SpawnItems(GameObject ground, bool safeSpawn)
+        public void SpawnItem(GameObject ground, bool safeSpawn)
         {
             TrySpawn(ground, itemPool, ItemType.Item);
 
@@ -41,7 +44,7 @@ using Random = UnityEngine.Random;
             if (Random.value>0.5f)return Task.CompletedTask;
             var xpos= SetXPosition(ground);
             
-            var item = pool.GetFromPool();
+           var item = pool.GetFromPool(2);
             if (item==null)return Task.CompletedTask;
 
             item.SetActive(true);
@@ -81,6 +84,106 @@ using Random = UnityEngine.Random;
             else if (chancePos > 0.7) xpos = ground.transform.position.x - (_spawner.GetWidth(ground) / 2f) + 2; //right
             return xpos;
         }
+public void SpawnItems(GameObject ground, bool safeSpawn)
+    {
+        SpawnItem(ground);
+
+        if (!safeSpawn)
+        {
+            SpawnEnemy(ground);
+        }
+    }
+
+    private void SpawnItem(GameObject ground)
+    {
+        if (Random.value > 0.5f)
+            return;
+
+        int itemIndex = GetDifferentIndex(
+            itemPool,
+            _lastItemIndex
+        );
+
+        _lastItemIndex = itemIndex;
+
+        var item = itemPool.GetFromPool(itemIndex);
+
+        if (item == null)
+            return;
+
+        item.SetActive(true);
+        item.transform.SetParent(ground.transform);
+
+        var itemComponent = item.GetComponent<Item>();
+
+        if (itemComponent == null)
+        {
+            for (int i = 0; i < item.transform.childCount; i++)
+            {
+                item.transform.GetChild(i).gameObject.SetActive(true);
+            }
+
+            return;
+        }
+
+        float xpos = SetXPosition(ground);
+
+        item.transform.position = new Vector3(
+            xpos,
+            ground.transform.position.y + itemComponent.Data.yPos,
+            0
+        );
+
+        item.transform.DOScale(
+            itemComponent.Data.scale,
+            0.01f
+        );
+    }
+
+    private void SpawnEnemy(GameObject ground)
+    {
+        if (Random.value > 0.5f)
+            return;
+
+        int enemyIndex = GetDifferentIndex(
+            enemyPool,
+            _lastEnemyIndex
+        );
+
+        _lastEnemyIndex = enemyIndex;
+
+        var enemy = enemyPool.GetFromPool(enemyIndex);
+
+        if (enemy == null)
+            return;
+
+        enemy.SetActive(true);
+        enemy.transform.SetParent(ground.transform);
+
+        if (!enemy.TryGetComponent(out FlyingDamage flyingDamage))
+            return;
+
+        float xpos = SetXPosition(ground);
+
+        enemy.transform.position = new Vector3(
+            xpos,
+            ground.transform.position.y + flyingDamage.Data.ypos,
+            0
+        );
+    }
+
+    private int GetDifferentIndex(ObjectPool pool, int lastIndex)
+    {
+        int index;
+
+        do
+        {
+            index = Random.Range(0, pool.PrefabCount);
+        }
+        while (pool.PrefabCount > 1 && index == lastIndex);
+
+        return index;
+    }
 
         private void ReleaseItem(GameObject obj)
         {

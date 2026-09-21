@@ -40,7 +40,7 @@ using Random = UnityEngine.Random;
         // Spawn a ground segment and its related objects
         public GameObject Spawn(float x, float y, bool safeSpawn)
         {
-            var ground = groundPool.GetFromPool();
+            var ground = groundPool.GetFromPool( Random.Range(0, groundPool.PrefabCount));
             if (ground == null) return null;
             ground.transform.position = new Vector3(x, y, 0);
             ground.SetActive(true);

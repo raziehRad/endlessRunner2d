@@ -2,62 +2,73 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private AssetReferenceGameObject[] prefabs;
-    [SerializeField] private int poolSize = 5;
+    [SerializeField] private int poolSize = 2;
 
-    private List<GameObject> pool = new List<GameObject>();
+    private readonly List<GameObject> pool = new();
+    private readonly Dictionary<GameObject, int> prefabIndexes = new();
+
     private Task poolReadyTask;
-    private async void Awake()
+    public int PrefabCount => prefabs.Length;
+
+    private void Awake()
     {
         poolReadyTask = InitializePool();
     }
 
     private async Task InitializePool()
     {
-        for (int i = 0; i < poolSize; i++)
+        // Create a separate pool for each prefab type.
+        for (int prefabIndex = 0; prefabIndex < prefabs.Length; prefabIndex++)
         {
-            await Create();
+            for (int i = 0; i < poolSize; i++)
+            {
+                await Create(prefabIndex);
+            }
         }
     }
+
     public Task WaitUntilReady()
     {
         return poolReadyTask;
     }
-    // Instantiate an Addressable object and add it to the pool
-    private async Task Create()
-    {
-        int rand = Random.Range(0, prefabs.Length);
 
-        GameObject obj = await prefabs[rand].InstantiateAsync().Task;
+    private async Task Create(int prefabIndex)
+    {
+        GameObject obj = await prefabs[prefabIndex].InstantiateAsync().Task;
 
         obj.SetActive(false);
+
         pool.Add(obj);
+        prefabIndexes[obj] = prefabIndex;
     }
-    // Get an inactive object from the pool
-    public GameObject GetFromPool()
+
+    public GameObject GetFromPool(int prefabIndex)
     {
         foreach (var obj in pool)
         {
-            if (!obj.activeInHierarchy)
+            if (!obj.activeInHierarchy &&
+                prefabIndexes[obj] == prefabIndex)
             {
                 obj.SetActive(true);
                 return obj;
             }
         }
 
-        ExpandPool();
-        Debug.LogWarning($"Pool {gameObject.name} is empty!");
+        Debug.LogWarning(
+            $"No inactive object available for prefab index {prefabIndex}."
+        );
+
         return null;
     }
-    private async void ExpandPool()
-    {
-        await Create();
-    }
+
     public void ReturnToPool(GameObject obj)
     {
-        if (obj == null) return;
+        if (obj == null)
+            return;
 
         obj.SetActive(false);
     }

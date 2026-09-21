@@ -33,12 +33,13 @@ using UnityEngine;
 
             int maxLevel = Mathf.FloorToInt((maxSpeed - baseSpeed) / speedPerLevel);
             speedLevel = Mathf.Min(coinCount / coinsPerLevel, maxLevel);
+            UpdateSpeed();
         }
 
         private void HitEnemy()
         {
             speedLevel = Mathf.Max(0, speedLevel - 1);
-            coinCount = speedLevel * coinsPerLevel;
+            var coincount = speedLevel * coinsPerLevel;
 
             UpdateSpeed();
         }
